@@ -19,6 +19,9 @@ import HelloWorld from './components/HelloWorld.vue'
   </header>
   -->
 
+  <RouterLink to="/about">About</RouterLink>
+  <RouterLink to="/sample">サンプルページ</RouterLink>
+
   <RouterView />
 </template>
 

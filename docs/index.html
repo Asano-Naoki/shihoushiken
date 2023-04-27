@@ -5,7 +5,17 @@
     <link rel="icon" href="/shihoushiken/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vite App</title>
-    <script type="module" crossorigin src="/shihoushiken/assets/index-0730a2a2.js"></script>
+    <script>
+      // GitHub Pages での SPA アドレス解決用
+      (function(){
+        const query = window.location.search;
+        if (query.startsWith('?p=')) {
+          const route = decodeURIComponent(query.substr(3));
+          window.history.replaceState(null, null, route);
+        }
+      })();
+    </script>    
+    <script type="module" crossorigin src="/shihoushiken/assets/main-f977ed1e.js"></script>
     <link rel="stylesheet" href="/shihoushiken/assets/index-f98d9498.css">
   </head>
   <body>

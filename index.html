@@ -5,6 +5,16 @@
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vite App</title>
+    <script>
+      // GitHub Pages での SPA アドレス解決用
+      (function(){
+        const query = window.location.search;
+        if (query.startsWith('?p=')) {
+          const route = decodeURIComponent(query.substr(3));
+          window.history.replaceState(null, null, route);
+        }
+      })();
+    </script>    
   </head>
   <body>
     <div id="app"></div>

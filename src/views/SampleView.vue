@@ -1,7 +1,7 @@
 <template>
   <main>
-    <div style="height:1000px;">
-      <h1>サンプルページ</h1>
+    <div>
+      <h1>司法試験過去問集・短答</h1>
       <div>
         <!--問題部分-->
         <v-card :title="title" variant="outlined">

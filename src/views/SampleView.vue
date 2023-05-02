@@ -21,7 +21,14 @@
         </v-table>
 
         <!--正誤結果部分-->
-        <p>{{ result }}</p>
+        <div v-show="show">
+          <div class="result">
+            <p v-if="correct" style="color:red;">○　正解</p>
+            <p v-else style="color:blue;">×　不正解</p>
+          </div>
+          <p class="answer">正解：{{ a }}</p>
+          <v-btn>次の問題</v-btn>
+        </div>
       </div>
     </div>
   </main>
@@ -36,7 +43,8 @@ export default {
       q: result[10].q,
       choices: result[10],
       a: result[10].a,
-      result: '',
+      correct: false,
+      show: false,
     }
   },
   created() {
@@ -60,7 +68,8 @@ export default {
     },
     getResult(choice) {
       const selectedChoice = choice.substr(0,1)
-      this.result = this.hankaku2Zenkaku(selectedChoice) == this.a ? '正解' : '不正解'
+      this.correct = this.hankaku2Zenkaku(selectedChoice) == this.a ? true : false
+      this.show = true
     }
   }
 }
@@ -71,5 +80,13 @@ export default {
   font-size: 18px;
   white-space: pre-wrap;
   line-height: 40px;
+}
+.result {
+  font-size:36px;
+}
+.answer {
+  font-size:24px;
+  margin-top:20px;
+  margin-bottom:20px;
 }
 </style>

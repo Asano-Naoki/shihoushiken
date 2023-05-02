@@ -19,7 +19,7 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/sample',
+      path: '/sample/:qNum',
       name: 'sample',
       component: SampleView
     }

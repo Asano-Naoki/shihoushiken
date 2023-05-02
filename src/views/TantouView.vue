@@ -11,9 +11,7 @@
         <!--選択肢部分-->
         <v-table>
           <tbody>
-            <tr
-              v-for="choice in filteredChoices"
-            >
+            <tr v-for="choice in filteredChoices">
               <td><v-btn @click="getResult(choice)">{{ choice.substr(0, 2) }}</v-btn></td>
               <td>{{ choice.substr(2) }}</td>
             </tr>
@@ -21,14 +19,16 @@
         </v-table>
 
         <!--正誤結果部分-->
-        <div v-show="show">
+        <div :class="{ hide: !show }">
           <div class="result">
             <p v-if="correct" style="color:red;">○　正解</p>
             <p v-else style="color:blue;">×　不正解</p>
           </div>
           <p class="answer">正解：{{ datum.a }}</p>
-          <v-btn><router-link :to="{ name: 'sample', params: { qNum: this.nextNum }}">次の問題</router-link></v-btn>
         </div>
+        
+        <!--次の問題-->
+        <v-btn @click="nextQ">次の問題</v-btn>
       </div>
     </div>
   </main>
@@ -40,33 +40,33 @@ import csvData from "../data/min2020.csv";
 export default {
   data() {
     return {
-      title: "2020年民法第"+this.$route.params.qNum+"問",
+      num: this.$route.params.qNum,
+      datum: {},
       correct: false,
       show: false,
-      datum: {},
-      thisNum: this.$route.params.qNum,
-      nextNum: Number(this.$route.params.qNum) +1,
     }
   },
   created() {
-    this.datum = csvData.filter(d => d.num == this.thisNum)[0]
+    this.datum = csvData.filter(d => d.num == this.num)[0]
   },
   beforeRouteUpdate (to, from, next) {
-    this.title = "2020年民法第"+to.params.qNum+"問"
+    this.num = to.params.qNum
+    this.datum = csvData.filter(d => d.num == to.params.qNum)[0]
     this.correct = false
     this.show = false
-    this.datum = csvData.filter(d => d.num == to.params.qNum)[0]
-    this.thisNum = to.params.qNum
-    this.nextNum = Number(to.params.qNum) +1
     window.scrollTo(0, 0)
     next()
   },  
   computed: {
-    //問題部分の改行の調整
+    //タイトル（科目・年度・問題番号）の生成
+    title() {
+      return "2020年民法第"+this.num+"問"
+    },
+    //問題部分の改行の調整（改行１つから２つに）
     filteredQ() {
       return this.datum.q.replace(/\n/g,'\n\n')
     },
-    //選択肢として表示する配列を返す
+    //選択肢として表示する配列（見出し行がcを含む配列）を返す
     filteredChoices() {
       return Object.keys(this.datum).filter(k => k.includes('c')).map(k => this.datum[k])
     }
@@ -83,7 +83,12 @@ export default {
       const selectedChoice = choice.substr(0,1)
       this.correct = this.hankaku2Zenkaku(selectedChoice) == this.datum.a ? true : false
       this.show = true
+      window.scrollBy(0, 1000);
     },
+    //次の問題
+    nextQ() {
+      this.$router.push({ name: 'tantou', params: { qNum: Number(this.num) + 1 }})
+    }
   }
 }
 </script>
@@ -101,5 +106,8 @@ export default {
   font-size:24px;
   margin-top:20px;
   margin-bottom:20px;
+}
+.hide {
+    visibility: hidden;
 }
 </style>

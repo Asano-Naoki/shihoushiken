@@ -27,8 +27,8 @@
           <p class="answer">正解：{{ datum.a }}</p>
         </div>
         
-        <!--次の問題-->
-        <v-btn @click="nextQ">次の問題</v-btn>
+        <!--前の問題と次の問題-->
+        <v-btn @click="prevQ">前の問題</v-btn>　<v-btn @click="nextQ">次の問題</v-btn>
       </div>
     </div>
   </main>
@@ -85,10 +85,14 @@ export default {
       this.show = true
       window.scrollBy(0, 1000);
     },
+    //前の問題
+    prevQ() {
+      this.$router.push({ name: 'tantou', params: { qNum: Number(this.num) - 1 }})
+    },
     //次の問題
     nextQ() {
       this.$router.push({ name: 'tantou', params: { qNum: Number(this.num) + 1 }})
-    }
+    },
   }
 }
 </script>

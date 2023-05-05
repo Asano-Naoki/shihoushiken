@@ -9,14 +9,22 @@
         </v-card>
 
         <!--選択肢部分-->
-        <v-table>
-          <tbody>
-            <tr v-for="choice in filteredChoices">
-              <td><v-btn @click="getResult(choice)">{{ choice.substr(0, 2) }}</v-btn></td>
-              <td>{{ choice.substr(2) }}</td>
-            </tr>
-          </tbody>
-        </v-table>
+        <!--答えが３個以上の場合-->
+        <!--答えが２個の場合-->
+        <div v-if="datum.a.length == 2">
+          <p>２こです</p>
+        </div>
+        <!--答えが１個の場合-->
+        <div v-else>
+          <v-table>
+            <tbody>
+              <tr v-for="choice in filteredChoices">
+                <td><v-btn @click="getResult(choice)">{{ choice.substr(0, 2) }}</v-btn></td>
+                <td>{{ choice.substr(2) }}</td>
+              </tr>
+            </tbody>
+          </v-table>
+        </div>
 
         <!--正誤結果部分-->
         <div :class="{ hide: !show }">
@@ -35,23 +43,26 @@
 </template>
 
 <script>
-import csvData from "../data/min2020.csv";
+import csvData from "../data/tantou.csv";
 
 export default {
   data() {
     return {
       num: this.$route.params.qNum,
+      subject: this.$route.params.subject,
       datum: {},
       correct: false,
       show: false,
+      toggle_multiple: [],
     }
   },
   created() {
-    this.datum = csvData.filter(d => d.num == this.num)[0]
+    this.datum = csvData.filter(d => d.num == this.num && d.subject == this.subject)[0]
   },
   beforeRouteUpdate (to, from, next) {
     this.num = to.params.qNum
-    this.datum = csvData.filter(d => d.num == to.params.qNum)[0]
+    this.subject = to.params.subject
+    this.datum = csvData.filter(d => d.num == to.params.qNum && d.subject == to.params.subject)[0]
     this.correct = false
     this.show = false
     window.scrollTo(0, 0)
@@ -60,15 +71,23 @@ export default {
   computed: {
     //タイトル（科目・年度・問題番号）の生成
     title() {
-      return "2020年民法第"+this.num+"問"
+      let subjectFull = ''
+      switch (this.subject) {
+        case 'min':
+          subjectFull = '民法'
+          break
+        case 'kei':
+          subjectFull = '刑法'
+      }
+      return "2020年"+subjectFull+"第"+this.num+"問"
     },
     //問題部分の改行の調整（改行１つから２つに）
     filteredQ() {
       return this.datum.q.replace(/\n/g,'\n\n')
     },
-    //選択肢として表示する配列（見出し行がcを含む配列）を返す
+    //選択肢として表示する配列（見出し行がcで始まる配列）を返す
     filteredChoices() {
-      return Object.keys(this.datum).filter(k => k.includes('c')).map(k => this.datum[k])
+      return Object.keys(this.datum).filter(k => k.startsWith('c')).map(k => this.datum[k])
     }
   },
   methods: {

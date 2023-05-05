@@ -11,7 +11,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/tantou/:qNum',
+      path: '/tantou/:subject/:qNum',
       name: 'tantou',
       component: TantouView
     }

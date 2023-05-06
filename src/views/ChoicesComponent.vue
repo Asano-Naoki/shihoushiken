@@ -42,10 +42,6 @@ export default {
   props: {
     datum: {},
   },
-  data() {
-    return {
-    }
-  },
   computed: {
     //選択肢として表示する配列（見出し行がcで始まる配列）を返す
     filteredChoices() {

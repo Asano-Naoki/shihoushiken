@@ -4,9 +4,11 @@
       <h1>司法試験過去問集・短答</h1>
       <div>
         <!--問題部分-->
-        <v-card :title="title" variant="outlined">
-          <v-card-text class="q">{{ filteredQ }}</v-card-text>
-        </v-card>
+        <QuestionComponent 
+          :datum="datum"
+          :subject="subject"
+          :num="num"
+        />
 
         <!--選択肢部分-->
         <ChoicesComponent
@@ -15,13 +17,11 @@
         />
 
         <!--正誤結果部分-->
-        <div :class="{ hide: !show }">
-          <div class="result">
-            <p v-if="correct" style="color:red;">○　正解</p>
-            <p v-else style="color:blue;">×　不正解</p>
-          </div>
-          <p class="answer">正解：{{ datum.a }}</p>
-        </div>
+        <ResultComponent
+          :datum="datum"
+          :show="show"
+          :correct="correct"
+        />
         
         <!--前の問題と次の問題-->
         <v-btn @click="prevQ">前の問題</v-btn>　<v-btn @click="nextQ">次の問題</v-btn>
@@ -32,11 +32,15 @@
 
 <script>
 import csvData from "../data/tantou.csv";
+import QuestionComponent from './QuestionComponent.vue'
 import ChoicesComponent from './ChoicesComponent.vue'
+import ResultComponent from './ResultComponent.vue'
 
 export default {
   components: {
+    QuestionComponent,
     ChoicesComponent,
+    ResultComponent,
   },
   data() {
     return {
@@ -60,24 +64,6 @@ export default {
     window.scrollTo(0, 0)
     next()
   },  
-  computed: {
-    //タイトル（科目・年度・問題番号）の生成
-    title() {
-      let subjectFull = ''
-      switch (this.subject) {
-        case 'min':
-          subjectFull = '民法'
-          break
-        case 'kei':
-          subjectFull = '刑法'
-      }
-      return "2020年"+subjectFull+"第"+this.num+"問"
-    },
-    //問題部分の改行の調整（改行１つから２つに）
-    filteredQ() {
-      return this.datum.q.replace(/\n/g,'\n\n')
-    },
-  },
   methods: {
     //前の問題
     prevQ() {
@@ -87,6 +73,7 @@ export default {
     nextQ() {
       this.$router.push({ name: 'tantou', params: { qNum: Number(this.num) + 1 }})
     },
+    //解答等の表示
     showAnswer(correct) {
       console.log('ans')
       this.correct = correct
@@ -96,22 +83,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.q {
-  font-size: 18px;
-  white-space: pre-wrap;
-  line-height: 40px;
-}
-.result {
-  font-size:36px;
-}
-.answer {
-  font-size:24px;
-  margin-top:20px;
-  margin-bottom:20px;
-}
-.hide {
-    visibility: hidden;
-}
-</style>

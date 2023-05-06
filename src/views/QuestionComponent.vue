@@ -8,21 +8,13 @@
 export default {
   props: {
     datum: {},
-    subject: '',
+    subjectFull: '',
     num: '',
   },
   computed: {
     //タイトル（科目・年度・問題番号）の生成
     title() {
-      let subjectFull = ''
-      switch (this.subject) {
-        case 'min':
-          subjectFull = '民法'
-          break
-        case 'kei':
-          subjectFull = '刑法'
-      }
-      return "2020年"+subjectFull+"第"+this.num+"問"
+      return this.subjectFull+"2020年第"+this.num+"問"
     },
     //問題部分の改行の調整（改行１つから２つに）
     filteredQ() {

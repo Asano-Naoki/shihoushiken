@@ -90,6 +90,11 @@ export default {
           return acc + String(cur)
         })
         this.toggle_multiple = []
+        this.toggle1 = ''
+        this.toggle2 = ''
+        this.toggle3 = ''
+        this.toggle4 = ''
+        this.toggle5 = ''
       }
       //単数解答の問題の場合
       else {

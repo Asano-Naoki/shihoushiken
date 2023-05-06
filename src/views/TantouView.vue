@@ -2,30 +2,33 @@
   <main>
     <div>
       <h1>司法試験過去問集・短答</h1>
-      <div>
-        <!--問題部分-->
-        <QuestionComponent 
-          :datum="datum"
-          :subject="subject"
-          :num="num"
-        />
+      <v-breadcrumbs
+        :items="breadcrumbs"
+        divider=">"
+      ></v-breadcrumbs>
+      
+      <!--問題部分-->
+      <QuestionComponent 
+        :datum="datum"
+        :subjectFull="subjectFull"
+        :num="num"
+      />
 
-        <!--選択肢部分-->
-        <ChoicesComponent
-          :datum="datum"
-          @show-answer="showAnswer"
-        />
+      <!--選択肢部分-->
+      <ChoicesComponent
+        :datum="datum"
+        @show-answer="showAnswer"
+      />
 
-        <!--正誤結果部分-->
-        <ResultComponent
-          :datum="datum"
-          :show="show"
-          :correct="correct"
-        />
-        
-        <!--前の問題と次の問題-->
-        <v-btn @click="prevQ">前の問題</v-btn>　<v-btn @click="nextQ">次の問題</v-btn>
-      </div>
+      <!--正誤結果部分-->
+      <ResultComponent
+        :datum="datum"
+        :show="show"
+        :correct="correct"
+      />
+      
+      <!--前の問題と次の問題-->
+      <v-btn @click="prevQ">前の問題</v-btn>　<v-btn @click="nextQ">次の問題</v-btn>
     </div>
   </main>
 </template>
@@ -46,13 +49,56 @@ export default {
     return {
       num: this.$route.params.qNum,
       subject: this.$route.params.subject,
+      subjectFull: '',
       datum: {},
       correct: false,
       show: false,
     }
   },
   created() {
+    //問題を1問だけ取り出す
     this.datum = csvData.filter(d => d.num == this.num && d.subject == this.subject)[0]
+    //日本語の科目名を設定する
+    switch (this.subject) {
+      case 'min':
+        this.subjectFull = '民法'
+        break
+      case 'kei':
+        this.subjectFull = '刑法'
+        break
+    }
+  },
+  computed: {
+    breadcrumbs() {
+      const breadcrumbs = [
+        {
+          text: '司法試験過去問集',
+          disabled: false,
+          href: '/',
+        },
+        {
+          text: '短答',
+          disabled: false,
+          href: '/tantou',
+        },
+        {
+          text: this.subjectFull,
+          disabled: false,
+          href: '/tantou',
+        },
+        {
+          text: '2020年',
+          disabled: false,
+          href: '/tantou/' + this.subject + '/1',
+        },
+        {
+          text: '第'+ this.num + '問',
+          disabled: true,
+          href: 'breadcrumbs_link_2',
+        },
+      ]
+      return breadcrumbs
+    }
   },
   beforeRouteUpdate (to, from, next) {
     this.num = to.params.qNum

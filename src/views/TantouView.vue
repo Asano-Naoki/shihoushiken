@@ -49,7 +49,6 @@ export default {
       datum: {},
       correct: false,
       show: false,
-      toggle_multiple: [],
     }
   },
   created() {
@@ -75,7 +74,6 @@ export default {
     },
     //解答等の表示
     showAnswer(correct) {
-      console.log('ans')
       this.correct = correct
       this.show = true
       window.scrollBy(0, 1000)

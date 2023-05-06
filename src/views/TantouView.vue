@@ -9,22 +9,10 @@
         </v-card>
 
         <!--選択肢部分-->
-        <!--答えが３個以上の場合-->
-        <!--答えが２個の場合-->
-        <div v-if="datum.a.length == 2">
-          <p>２こです</p>
-        </div>
-        <!--答えが１個の場合-->
-        <div v-else>
-          <v-table>
-            <tbody>
-              <tr v-for="choice in filteredChoices">
-                <td><v-btn @click="getResult(choice)">{{ choice.substr(0, 2) }}</v-btn></td>
-                <td>{{ choice.substr(2) }}</td>
-              </tr>
-            </tbody>
-          </v-table>
-        </div>
+        <ChoicesComponent
+          :datum="datum"
+          @show-answer="showAnswer"
+        />
 
         <!--正誤結果部分-->
         <div :class="{ hide: !show }">
@@ -44,8 +32,12 @@
 
 <script>
 import csvData from "../data/tantou.csv";
+import ChoicesComponent from './ChoicesComponent.vue'
 
 export default {
+  components: {
+    ChoicesComponent,
+  },
   data() {
     return {
       num: this.$route.params.qNum,
@@ -85,25 +77,8 @@ export default {
     filteredQ() {
       return this.datum.q.replace(/\n/g,'\n\n')
     },
-    //選択肢として表示する配列（見出し行がcで始まる配列）を返す
-    filteredChoices() {
-      return Object.keys(this.datum).filter(k => k.startsWith('c')).map(k => this.datum[k])
-    }
   },
   methods: {
-    //半角→全角（選択肢と解答を照合するため）
-    hankaku2Zenkaku(str) {
-      return str.replace(/[０-９]/g, function(s) {
-        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
-      })
-    },
-    //選択肢のボタンを押したら正解等を表示
-    getResult(choice) {
-      const selectedChoice = choice.substr(0,1)
-      this.correct = this.hankaku2Zenkaku(selectedChoice) == this.datum.a ? true : false
-      this.show = true
-      window.scrollBy(0, 1000);
-    },
     //前の問題
     prevQ() {
       this.$router.push({ name: 'tantou', params: { qNum: Number(this.num) - 1 }})
@@ -112,6 +87,12 @@ export default {
     nextQ() {
       this.$router.push({ name: 'tantou', params: { qNum: Number(this.num) + 1 }})
     },
+    showAnswer(correct) {
+      console.log('ans')
+      this.correct = correct
+      this.show = true
+      window.scrollBy(0, 1000)
+    }
   }
 }
 </script>

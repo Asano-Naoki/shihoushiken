@@ -1,8 +1,24 @@
 <template>
   <!--答えが３個以上の場合-->
+  <template v-if="datum.a.length > 2">
+    <div v-for="i in datum.a.length">
+      <v-item-group v-model="$data['toggle' + i]" mandatory selected-class="bg-grey">
+        <v-container>
+          <v-row>
+            <v-col v-for="n in 2" cols=1>
+              <v-item v-slot:default="{ selectedClass, toggle }">
+                <v-btn :class="selectedClass" @click="toggle">{{ n }}</v-btn>
+              </v-item>
+            </v-col>
+          </v-row>
+        </v-container>  
+      </v-item-group>
+    </div>
+    <v-btn @click="getResult([toggle1, toggle2, toggle3, toggle4, toggle5])">解答確認</v-btn>
+  </template>
 
   <!--答えが２個の場合-->
-  <template v-if="datum.a.length == 2">
+  <template v-else-if="datum.a.length == 2">
     <v-container>
       <v-item-group v-model="toggle_multiple" multiple selected-class="bg-grey">
         <v-item v-for="choice in filteredChoices" v-slot:default="{ selectedClass, toggle }">
@@ -44,6 +60,11 @@ export default {
   data() {
     return {
       toggle_multiple: [],
+      toggle1: '',
+      toggle2: '',
+      toggle3: '',
+      toggle4: '',
+      toggle5: '',
     }
   },
   computed: {
@@ -77,6 +98,9 @@ export default {
       const correct = this.hankaku2Zenkaku(selectedChoice) == this.datum.a ? true : false
       this.$emit('showAnswer', correct)
     },
+    setToggle(i) {
+      return 'toggle' + String(i)
+    }
   }
 }
 </script>

@@ -77,27 +77,27 @@ export default {
         {
           text: '司法試験過去問集',
           disabled: false,
-          href: '/',
+          to: { name: 'home' },
         },
         {
           text: '短答',
           disabled: false,
-          href: '/tantou',
+          to: { name: 'tantouTop' },
         },
         {
           text: this.subjectFull,
           disabled: false,
-          href: '/tantou',
+          to: { name: 'tantouTop' },
         },
         {
           text: '2020年',
           disabled: false,
-          href: '/tantou/' + this.subject + '/1',
+          to: { name: 'tantou',  params: { subject: this.subject, qNum: 1 } },
         },
         {
           text: '第'+ this.num + '問',
-          disabled: true,
-          href: 'breadcrumbs_link_2',
+          disabled: false,
+          to: { name: 'tantou',  params: { subject: this.subject, qNum: this.num } },
         },
       ]
       return breadcrumbs

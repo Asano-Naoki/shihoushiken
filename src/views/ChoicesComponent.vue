@@ -86,9 +86,10 @@ export default {
       //複数解答の問題の場合
       if (typeof choice == 'object') {
         //選択された選択肢番号（配列は0から始まるので1を足していることに注意）を文字列として結合する
-        selectedChoice = Object.values(choice).map(x => x + 1).reduce((acc, cur) => {
+        let fiveChoice = Object.values(choice).map(x => x + 1).reduce((acc, cur) => {
           return acc + String(cur)
         })
+        selectedChoice = fiveChoice.slice(0, this.datum.a.length)
         this.toggle_multiple = []
         this.toggle1 = ''
         this.toggle2 = ''

@@ -60,6 +60,9 @@ export default {
     this.datum = csvData.filter(d => d.num == this.num && d.subject == this.subject)[0]
     //日本語の科目名を設定する
     switch (this.subject) {
+      case 'ken':
+        this.subjectFull = '憲法'
+        break
       case 'min':
         this.subjectFull = '民法'
         break

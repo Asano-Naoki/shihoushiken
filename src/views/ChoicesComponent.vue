@@ -70,7 +70,7 @@ export default {
   computed: {
     //選択肢として表示する配列（見出し行がcで始まる配列）を返す
     filteredChoices() {
-      return Object.keys(this.datum).filter(k => k.startsWith('c')).map(k => this.datum[k])
+      return Object.keys(this.datum).filter(k => k.startsWith('c')).filter(k => this.datum[k] != '').map(k => this.datum[k])
     }
   },
   methods: {

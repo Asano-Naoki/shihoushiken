@@ -108,7 +108,8 @@ export default {
   beforeRouteUpdate (to, from, next) {
     this.num = to.params.qNum
     this.subject = to.params.subject
-    this.datum = csvData.filter(d => d.num == to.params.qNum && d.subject == to.params.subject)[0]
+    this.year = to.params.year
+    this.datum = csvData.filter(d => d.subject == to.params.subject && d.year == to.params.year && d.num == to.params.qNum )[0]
     this.correct = false
     this.show = false
     window.scrollTo(0, 0)

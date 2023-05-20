@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import csvData from "../data/tantou.csv";
+import csvData from "../../data/tantou.csv";
 import QuestionComponent from './QuestionComponent.vue'
 import ChoicesComponent from './ChoicesComponent.vue'
 import ResultComponent from './ResultComponent.vue'

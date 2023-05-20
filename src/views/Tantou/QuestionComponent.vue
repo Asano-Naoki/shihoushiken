@@ -10,11 +10,12 @@ export default {
     datum: {},
     subjectFull: '',
     num: '',
+    year: '',
   },
   computed: {
     //タイトル（科目・年度・問題番号）の生成
     title() {
-      return this.subjectFull+"2020年第"+this.num+"問"
+      return this.subjectFull+this.year+"年第"+this.num+"問"
     },
     //問題部分の改行の調整（改行１つから２つに）
     filteredQ() {

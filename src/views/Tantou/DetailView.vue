@@ -12,6 +12,7 @@
         :datum="datum"
         :subjectFull="subjectFull"
         :num="num"
+        :year="year"
       />
 
       <!--選択肢部分-->
@@ -49,6 +50,7 @@ export default {
     return {
       num: this.$route.params.qNum,
       subject: this.$route.params.subject,
+      year: this.$route.params.year,
       subjectFull: '',
       datum: {},
       correct: false,
@@ -57,7 +59,7 @@ export default {
   },
   created() {
     //問題を1問だけ取り出す
-    this.datum = csvData.filter(d => d.num == this.num && d.subject == this.subject)[0]
+    this.datum = csvData.filter(d => d.subject == this.subject && d.year == this.year && d.num == this.num)[0]
     //日本語の科目名を設定する
     switch (this.subject) {
       case 'ken':
@@ -90,7 +92,7 @@ export default {
           to: { name: 'tantouTop' },
         },
         {
-          text: '2020年',
+          text: this.year+'年',
           disabled: false,
           to: { name: 'tantou',  params: { subject: this.subject, qNum: 1 } },
         },

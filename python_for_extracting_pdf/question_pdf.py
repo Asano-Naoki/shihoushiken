@@ -2,14 +2,18 @@ from pdfminer.high_level import extract_text
 import re
 import csv
 
+# ファイル名（科目と年度）の設定
+FILENAME = "min2021q"
+
 # PDFファイルからテキストの抽出
-s = extract_text("2021kei.pdf")
+s = extract_text(f"{FILENAME}.pdf")
 
 # まず改行をすべて削除
 s = s.replace( '\n' , '' )
 
 # 不要な開始部分を削除
 s = s.replace('短答式試験問題集［刑法］- 1 -［刑法］', '')
+s = s.replace('短答式試験問題集［民法］', '')
 
 # 改行が必要な部分に改行の追加
 s = s.replace('ア．', '\nア．')
@@ -95,6 +99,6 @@ for question in questions:
     result.append(row_list)
 
 # CSVファイルへの結果の書き込み
-with open('./kei2021mon.csv', 'w') as f:
+with open(f'./{FILENAME}.csv', 'w') as f:
     writer = csv.writer(f)
     writer.writerows(result)

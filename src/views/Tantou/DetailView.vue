@@ -1,6 +1,16 @@
 <template>
-  <main>
-    <div>
+  <v-layout>
+    <v-navigation-drawer permanent width=150>
+      <v-list nav>
+        <v-list-item
+            v-for="question in questions"
+            :title="'第'+question+'問'"
+            :to="'/tantou/'+subject+'/'+year+'/'+question"
+          ></v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
       <h1>司法試験過去問集・短答</h1>
       <v-breadcrumbs
         :items="breadcrumbs"
@@ -30,8 +40,8 @@
       
       <!--前の問題と次の問題-->
       <v-btn @click="prevQ">前の問題</v-btn>　<v-btn @click="nextQ">次の問題</v-btn>
-    </div>
-  </main>
+    </v-main>
+  </v-layout>
 </template>
 
 <script>
@@ -55,9 +65,12 @@ export default {
       datum: {},
       correct: false,
       show: false,
+      questions: [],
     }
   },
   created() {
+    //問題番号を設定
+    this.questions = this.range(1, 30)
     //問題を1問だけ取り出す
     this.datum = csvData.filter(d => d.subject == this.subject && d.year == this.year && d.num == this.num)[0]
     //日本語の科目名を設定する
@@ -129,7 +142,15 @@ export default {
       this.correct = correct
       this.show = true
       window.scrollBy(0, 1000)
-    }
+    },
+    //連番を作成
+    range(start, end) {
+      let continuousArray = []
+      for (let i = start; i <= end; i++) {
+        continuousArray.push(i)
+      }
+      return continuousArray;
+    },
   }
 }
 </script>

@@ -12,21 +12,11 @@
           ></v-list-item>
         </template>
         <!-- 中身１ -->
-        <v-list-group v-for="year in years">
-          <!-- 見出し２ -->
-          <template v-slot:activator="{ props }">
-            <v-list-item
-              v-bind="props"
-              :title="year"
-            ></v-list-item>
-          </template>
-          <!-- 中身２ -->
-          <v-list-item
-            v-for="question in questions"
-            :title="'第'+question+'問'"
-            :to="'tantou/'+subject+'/'+year+'/'+question"
-          ></v-list-item>
-        </v-list-group>
+        <v-list-item
+            v-for="year in years"
+            :title="year"
+            :to="'/tantou/'+subject+'/'+year+'/1'"
+        ></v-list-item>
       </v-list-group>
     </v-list>
     
@@ -40,7 +30,6 @@
         open: [],
         subjects: ['ken', 'min', 'kei'],
         years: ['2022', '2021', '2020', '2019', '2018'],
-        questions: [],
         cruds: [
           ['Create', 'mdi-plus-outline'],
           ['Read', 'mdi-file-outline'],
@@ -48,9 +37,6 @@
           ['Delete', 'mdi-delete'],
         ],
       }
-    },
-    created() {
-      this.questions = this.range(1, 30)
     },
     methods: {
       subjectFull(subject) {
@@ -65,13 +51,6 @@
             return '刑法'
             break
         }
-      },
-      range(start, end) {
-        let continuousArray = []
-        for (let i = start; i <= end; i++) {
-          continuousArray.push(i)
-        }
-        return continuousArray;
       },
     },
   }

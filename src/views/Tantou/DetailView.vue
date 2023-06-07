@@ -6,6 +6,7 @@
             v-for="question in questions"
             :title="'第'+question+'問'"
             :to="'/tantou/'+subject+'/'+year+'/'+question"
+            ref=question
           ></v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -70,7 +71,7 @@ export default {
   },
   created() {
     //問題番号を設定
-    this.questions = this.range(1, 30)
+    this.questions = this.range(1, csvData.filter(d => d.subject == this.subject && d.year == this.year).length)
     //問題を1問だけ取り出す
     this.datum = csvData.filter(d => d.subject == this.subject && d.year == this.year && d.num == this.num)[0]
     //日本語の科目名を設定する

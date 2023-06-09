@@ -3,7 +3,7 @@ import re
 import csv
 
 # ファイル名（科目と年度）の設定
-FILENAME = "min2021q"
+FILENAME = "kou2021q"
 
 # PDFファイルからテキストの抽出
 s = extract_text(f"{FILENAME}.pdf")
@@ -14,6 +14,7 @@ s = s.replace( '\n' , '' )
 # 不要な開始部分を削除
 s = s.replace('短答式試験問題集［刑法］- 1 -［刑法］', '')
 s = s.replace('短答式試験問題集［民法］', '')
+s = s.replace('短答式試験問題集［憲法］', '')
 
 # 改行が必要な部分に改行の追加
 s = s.replace('ア．', '\nア．')
@@ -55,6 +56,7 @@ s = s.replace('Ａ．', '\nＡ．')
 s = s.replace('Ｂ．', '\nＢ．')
 s = s.replace('Ｃ．', '\nＣ．')
 s = s.replace('Ｄ．', '\nＤ．')
+s = s.replace('ｂ．', '\nｂ．')
 
 # あとで選択肢を分割できるように一時的に@を付加
 s = s.replace('１．', '@１．')
@@ -64,6 +66,7 @@ s = s.replace('４．', '@４．')
 s = s.replace('５．', '@５．')
 s = s.replace('６．', '@６．')
 s = s.replace('７．', '@７．')
+s = s.replace('８．', '@８．')
 s = s.replace('１.', '@１.')
 s = s.replace('２.', '@２.')
 s = s.replace('３.', '@３.')
@@ -71,6 +74,7 @@ s = s.replace('４.', '@４.')
 s = s.replace('５.', '@５.')
 s = s.replace('６.', '@６.')
 s = s.replace('７.', '@７.')
+s = s.replace('８.', '@８.')
 
 # あとで問題ごとに分割できるように一時的に#を付加
 s = s.replace('〔第', '#〔第')

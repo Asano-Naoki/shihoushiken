@@ -3,7 +3,7 @@ import re
 import csv
 
 # ファイル名（科目と年度）の設定
-FILENAME = "kei2022q"
+FILENAME = "min2022q"
 
 # PDFファイルからテキストの抽出
 s = extract_text(f"{FILENAME}.pdf")

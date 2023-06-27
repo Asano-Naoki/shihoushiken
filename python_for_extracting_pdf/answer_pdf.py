@@ -1,7 +1,7 @@
 import tabula
 
 # ファイル名（科目と年度）の設定
-FILENAME = "keipyt2022a"
+FILENAME = "minpy 2022a"
 
 # lattice=Trueでテーブルの軸線でセルを判定
 dfs = tabula.read_pdf(f"{FILENAME}.pdf", lattice=True, pages = '1')

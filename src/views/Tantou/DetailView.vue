@@ -13,6 +13,8 @@
 
     <v-main>
       <h1>司法試験過去問集・短答</h1>
+
+      <!--パンくずリスト-->
       <v-breadcrumbs
         :items="breadcrumbs"
         divider=">"

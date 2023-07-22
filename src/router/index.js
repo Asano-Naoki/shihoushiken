@@ -3,6 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 //トップページ
 import HomeView from '../views/HomeView.vue'
 
+//検索ページ
+import SearchView from '../views/SearchView.vue'
+
 //短答
 import TantouTopView from '../views/Tantou/TopView.vue'
 import TantouDetailView from '../views/Tantou/DetailView.vue'
@@ -15,6 +18,12 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    //検索ページ
+    {
+      path: '/search',
+      name: 'search',
+      component: SearchView
     },
     //短答
     {

@@ -38,7 +38,7 @@
           class="tr-link"
           @click="onClick(result.item)"
         >
-          <td>{{ result.item.subject }}</td>
+          <td>{{ subjectFull(result.item.subject) }}</td>
           <td>{{ result.item.year }}</td>
           <td>{{ result.item.num }}</td>
           <td v-html=highlight(result.item.q,result.matches[0].indices)></td>
@@ -52,15 +52,13 @@
 <script>
 import csvData from "../data/tantou.csv";
 import Fuse from 'fuse.js'
+import { transformSubject } from '../helpers/transformSubject.js'
 
 export default {
   data() {
     return {
       word: "",
       results: [],
-      test: "あいうえおかきくけこ",
-      test2: "aaaaa",
-      matches: [[ 2, 2 ], [ 4, 5 ], [7, 9]],
     }
   },
   methods: {
@@ -102,7 +100,11 @@ export default {
     onClick(item) {
       let routeData = this.$router.resolve({ name: 'tantou', params: { subject: item.subject, year: item.year, qNum: item.num }})
       window.open(routeData.href, '_blank');
-    }
+    },
+    //科目名を日本語の正式名に
+    subjectFull(subject) {
+      return transformSubject(subject)
+    },    
   }
 }
 </script>

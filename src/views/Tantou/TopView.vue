@@ -13,9 +13,9 @@
         </template>
         <!-- 中身１ -->
         <v-list-item
-            v-for="year in years"
+            v-for="year in years(subject)"
             :title="year"
-            :to="'/tantou/'+subject+'/'+year+'/1'"
+            :to="'/tantou/'+subject+'/'+year+'/'+qNum(subject, year)"
         ></v-list-item>
       </v-list-group>
     </v-list>
@@ -24,34 +24,45 @@
 </template>
 
 <script>
+import { transformSubject } from '../../helpers/transformSubject.js'
+
   export default {
     data() {
       return {
         open: [],
-        subjects: ['ken', 'min', 'kei'],
-        years: ['2022', '2021', '2020', '2019', '2018'],
-        cruds: [
-          ['Create', 'mdi-plus-outline'],
-          ['Read', 'mdi-file-outline'],
-          ['Update', 'mdi-update'],
-          ['Delete', 'mdi-delete'],
-        ],
+        subjects: ['ken', 'gyo', 'min', 'syo', 'mso', 'kei', 'kso'],
       }
     },
     methods: {
       subjectFull(subject) {
-        switch (subject) {
-          case 'ken':
-            return '憲法'
-            break
-          case 'min':
-            return '民法'
-            break
-          case 'kei':
-            return '刑法'
-            break
+        return transformSubject(subject)
+      },
+      years(subject) {
+        const oldSubjects = ['gyo', 'syo', 'mso', 'kso']
+        if (oldSubjects.includes(subject)) {
+          return ['2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006']
+        }
+        else {
+          return ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006']
         }
       },
+      qNum(subject, year) {
+        if (subject == 'gyo' && year == 2014) {
+          return 21
+        }
+        else if (subject == 'syo' && year == 2014) {
+          return 38
+        }
+        else if (subject == 'mso' && year == 2014) {
+          return 57
+        }
+        if (subject == 'kso' && year == 2014) {
+          return 21
+        }
+        else {
+          return 1
+        }
+      }
     },
   }
 </script>

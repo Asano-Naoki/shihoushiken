@@ -52,6 +52,7 @@ import csvData from "../../data/tantou.csv";
 import QuestionComponent from './QuestionComponent.vue'
 import ChoicesComponent from './ChoicesComponent.vue'
 import ResultComponent from './ResultComponent.vue'
+import { transformSubject } from '../../helpers/transformSubject.js'
 
 export default {
   components: {
@@ -73,21 +74,13 @@ export default {
   },
   created() {
     //問題番号を設定
-    this.questions = this.range(1, csvData.filter(d => d.subject == this.subject && d.year == this.year).length)
+    const questionsArray = csvData.filter(d => d.subject == this.subject && d.year == this.year)
+    const firstNum = Number(questionsArray[0].num)
+    this.questions = this.range(firstNum, (firstNum + questionsArray.length))
     //問題を1問だけ取り出す
     this.datum = csvData.filter(d => d.subject == this.subject && d.year == this.year && d.num == this.num)[0]
     //日本語の科目名を設定する
-    switch (this.subject) {
-      case 'ken':
-        this.subjectFull = '憲法'
-        break
-      case 'min':
-        this.subjectFull = '民法'
-        break
-      case 'kei':
-        this.subjectFull = '刑法'
-        break
-    }
+    this.subjectFull = transformSubject(this.subject)
   },
   computed: {
     breadcrumbs() {
@@ -149,7 +142,7 @@ export default {
     //連番を作成
     range(start, end) {
       let continuousArray = []
-      for (let i = start; i <= end; i++) {
+      for (let i = start; i < end; i++) {
         continuousArray.push(i)
       }
       return continuousArray;

@@ -35,6 +35,8 @@
         <tr
           v-for="result in results"
           :key="result.refIndex"
+          class="tr-link"
+          @click="onClick(result.item)"
         >
           <td>{{ result.item.subject }}</td>
           <td>{{ result.item.year }}</td>
@@ -95,7 +97,21 @@ export default {
         }
       }
       return splitedText.join('')
+    },
+    //クリックしたらその問題に移動
+    onClick(item) {
+      let routeData = this.$router.resolve({ name: 'tantou', params: { subject: item.subject, year: item.year, qNum: item.num }})
+      window.open(routeData.href, '_blank');
     }
   }
 }
 </script>
+
+<style>
+.tr-link {
+  cursor:pointer;
+}
+.tr-link:hover {
+  background-color: lightgrey;
+}
+</style>

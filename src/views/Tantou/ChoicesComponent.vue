@@ -111,6 +111,9 @@ export default {
       if (subject == 'gyo' && year == '2012' && num == '21') {
         return 5
       }
+      else if (subject == 'gyo' && year == '2009' && num == '36') {
+        return 4
+      }
       else {
         return 2
       }

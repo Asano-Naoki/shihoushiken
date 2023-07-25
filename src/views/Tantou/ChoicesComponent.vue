@@ -5,7 +5,7 @@
       <v-item-group v-model="$data['toggle' + i]" mandatory selected-class="bg-grey">
         <v-container>
           <v-row>
-            <v-col v-for="n in 2" cols=1>
+            <v-col v-for="n in getTheNumberOfChoices(datum.subject, datum.year, datum.num)" cols=1>
               <v-item v-slot:default="{ selectedClass, toggle }">
                 <v-btn :class="selectedClass" @click="toggle">{{ n }}</v-btn>
               </v-item>
@@ -106,6 +106,14 @@ export default {
     },
     setToggle(i) {
       return 'toggle' + String(i)
+    },
+    getTheNumberOfChoices(subject, year, num) {
+      if (subject == 'gyo' && year == '2012' && num == '21') {
+        return 5
+      }
+      else {
+        return 2
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <v-card :title="title" variant="outlined">
-    <v-card-text class="q">{{ filteredQ }}</v-card-text>
+    <v-card-text class="q" v-html=filteredQ></v-card-text>
   </v-card>
 </template>
 

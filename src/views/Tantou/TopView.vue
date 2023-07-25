@@ -47,16 +47,22 @@ import { transformSubject } from '../../helpers/transformSubject.js'
         }
       },
       qNum(subject, year) {
-        if (subject == 'gyo' && year == 2014) {
+        if (subject == 'gyo' && ['2014', '2013', '2012'].includes(year)) {
           return 21
         }
         else if (subject == 'syo' && year == 2014) {
           return 38
         }
+        else if (subject == 'syo' && ['2013', '2012'].includes(year)) {
+          return 37
+        }
         else if (subject == 'mso' && year == 2014) {
           return 57
         }
-        if (subject == 'kso' && year == 2014) {
+        else if (subject == 'mso' && ['2013', '2012'].includes(year)) {
+          return 56
+        }
+        if (subject == 'kso' && ['2014', '2013', '2012'].includes(year)) {
           return 21
         }
         else {

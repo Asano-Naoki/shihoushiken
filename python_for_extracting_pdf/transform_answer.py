@@ -1,7 +1,7 @@
 import csv
 
 # ファイル名（科目と年度）の設定
-FILENAME = "kou2011a"
+FILENAME = "kou2010a"
 
 # 解答を記録したファイルの読み込み
 answerFile = open(f"{FILENAME}.csv")

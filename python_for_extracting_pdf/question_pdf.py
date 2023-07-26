@@ -3,18 +3,13 @@ import re
 import csv
 
 # ファイル名（科目と年度）の設定
-FILENAME = "kou2009q"
+FILENAME = "kou2008q"
 
 # PDFファイルからテキストの抽出
 s = extract_text(f"{FILENAME}.pdf")
 
 # まず改行をすべて削除
 s = s.replace( '\n' , '' )
-
-# 不要な開始部分を削除
-s = s.replace('短答式試験問題集［刑法］- 1 -［刑法］', '')
-s = s.replace('短答式試験問題集［民法］', '')
-s = s.replace('短答式試験問題集［憲法］', '')
 
 # 改行が必要な部分に改行の追加
 s = s.replace('ア．', '\nア．')
@@ -48,6 +43,7 @@ s = s.replace('【見 解】', '\n【見 解】')
 s = s.replace('【記 述】', '\n【記 述】')
 s = s.replace('【事例群】', '\n【事例群】')
 s = s.replace('【語句群】', '\n【語句群】')
+s = s.replace('（参照条文）', '\n（参照条文）')
 s = s.replace('Ⅰ．', '\nⅠ．')
 s = s.replace('Ⅱ．', '\nⅡ．')
 s = s.replace('Ⅲ．', '\nⅢ．')

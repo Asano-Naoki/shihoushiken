@@ -1,6 +1,6 @@
 <template>
-  <!--答えが３個以上の場合-->
-  <template v-if="datum.a.length > 2">
+  <!--答えが３個以上の場合（と憲法2007年第7問、刑事訴訟法2007年第21問）-->
+  <template v-if="datum.a.length > 2 || (datum.subject == 'ken' && datum.year == 2007 && datum.num == 7) || (datum.subject == 'kso' && datum.year == 2007 && datum.num == 21)">
     <div v-for="i in datum.a.length">
       <v-item-group v-model="$data['toggle' + i]" mandatory selected-class="bg-grey">
         <v-container>
@@ -41,10 +41,10 @@
     <v-container>
       <v-row align="center" v-for="choice in filteredChoices">
         <v-col cols=1>
-          <v-btn @click="getResult(choice)">{{ choice.substr(0, 2) }}</v-btn>
+          <v-btn @click="getResult(choice)">{{ choice.split('．')[0] + '．' }}</v-btn>
         </v-col>
         <v-col cols=11 class="choice">
-          {{ choice.substr(2) }}
+          {{ choice.split('．')[1] }}
         </v-col>
       </v-row>
     </v-container>
@@ -108,11 +108,20 @@ export default {
       return 'toggle' + String(i)
     },
     getTheNumberOfChoices(subject, year, num) {
-      if (subject == 'gyo' && year == '2012' && num == '21') {
+      if ( (subject == 'gyo' && year == '2012' && num == '21') || (subject == 'kso' && year == '2007' && num == '23') || (subject == 'kso' && year == '2007' && num == '36') ) {
         return 5
       }
       else if (subject == 'gyo' && year == '2009' && num == '36') {
         return 4
+      }
+      else if (subject == 'ken' && year == '2007' && num == '1') {
+        return 8
+      }
+      else if (subject == 'ken' && year == '2007' && num == '7') {
+        return 3
+      }
+      else if ( (subject == 'ken' && year == '2007' && num == '17') || (subject == 'kso' && year == '2007' && num == '21') ) {
+        return 6
       }
       else {
         return 2

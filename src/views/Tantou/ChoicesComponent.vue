@@ -111,16 +111,16 @@ export default {
       if ( (subject == 'gyo' && year == '2012' && num == '21') || (subject == 'kso' && year == '2007' && num == '23') || (subject == 'kso' && year == '2007' && num == '36') ) {
         return 5
       }
-      else if (subject == 'gyo' && year == '2009' && num == '36') {
+      else if ( (subject == 'gyo' && year == '2009' && num == '36') || (subject == 'min' && year == '2006' && num == '31') ) {
         return 4
       }
       else if (subject == 'ken' && year == '2007' && num == '1') {
         return 8
       }
-      else if (subject == 'ken' && year == '2007' && num == '7') {
+      else if ( (subject == 'ken' && year == '2007' && num == '7') || (subject == 'ken' && year == '2006' && num == '5') || (subject == 'kso' && year == '2006' && num == '39') ) {
         return 3
       }
-      else if ( (subject == 'ken' && year == '2007' && num == '17') || (subject == 'kso' && year == '2007' && num == '21') ) {
+      else if ( (subject == 'ken' && year == '2007' && num == '17') || (subject == 'kso' && year == '2007' && num == '21') || (subject == 'ken' && year == '2006' && num == '7') ) {
         return 6
       }
       else {

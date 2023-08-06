@@ -12,7 +12,7 @@
     </v-navigation-drawer>
 
     <v-main>
-      <h1>司法試験過去問集・短答</h1>
+      <h1>司法試験過去問題集・短答</h1>
 
       <!--パンくずリスト-->
       <v-breadcrumbs
@@ -86,7 +86,7 @@ export default {
     breadcrumbs() {
       const breadcrumbs = [
         {
-          text: '司法試験過去問集',
+          text: '司法試験過去問題集',
           disabled: false,
           to: { name: 'home' },
         },

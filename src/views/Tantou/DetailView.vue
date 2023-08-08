@@ -1,15 +1,11 @@
 <template>
   <v-layout>
-    <v-navigation-drawer permanent width=150>
-      <v-list nav>
-        <v-list-item
-            v-for="question in questions"
-            :title="'第'+question+'問'"
-            :to="'/tantou/'+subject+'/'+year+'/'+question"
-            ref=question
-          ></v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    <!-- 問題番号を表示する左サイドバー -->
+    <LeftSidebarQuestionsComponent 
+        :questions="questions"
+        :subject="subject"
+        :year="year"
+    />  
 
     <v-main>
       <h1>司法試験過去問題集・短答</h1>
@@ -23,7 +19,7 @@
       <!--問題部分-->
       <QuestionComponent 
         :datum="datum"
-        :subjectFull="subjectFull"
+        :subject="subject"
         :num="num"
         :year="year"
       />
@@ -52,6 +48,7 @@ import csvData from "../../data/tantou.csv";
 import QuestionComponent from './QuestionComponent.vue'
 import ChoicesComponent from './ChoicesComponent.vue'
 import ResultComponent from './ResultComponent.vue'
+import LeftSidebarQuestionsComponent from './LeftSidebarQuestionsComponent.vue'
 import { transformSubject } from '../../helpers/transformSubject.js'
 
 export default {
@@ -59,13 +56,13 @@ export default {
     QuestionComponent,
     ChoicesComponent,
     ResultComponent,
+    LeftSidebarQuestionsComponent,
   },
   data() {
     return {
       num: this.$route.params.qNum,
       subject: this.$route.params.subject,
       year: this.$route.params.year,
-      subjectFull: '',
       datum: {},
       correct: false,
       show: false,
@@ -79,8 +76,6 @@ export default {
     this.questions = this.range(firstNum, (firstNum + questionsArray.length))
     //問題を1問だけ取り出す
     this.datum = csvData.filter(d => d.subject == this.subject && d.year == this.year && d.num == this.num)[0]
-    //日本語の科目名を設定する
-    this.subjectFull = transformSubject(this.subject)
   },
   computed: {
     breadcrumbs() {
@@ -96,7 +91,7 @@ export default {
           to: { name: 'tantouTop' },
         },
         {
-          text: this.subjectFull,
+          text: transformSubject(this.subject),
           disabled: false,
           to: { name: 'tantouTop' },
         },

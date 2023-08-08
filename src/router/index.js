@@ -9,6 +9,7 @@ import SearchView from '../views/SearchView.vue'
 //短答
 import TantouTopView from '../views/Tantou/TopView.vue'
 import TantouDetailView from '../views/Tantou/DetailView.vue'
+import RandomView from '../views/Tantou/RandomView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,12 @@ const router = createRouter({
       path: '/search',
       name: 'search',
       component: SearchView
+    },
+    //ランダム出題
+    {
+      path: '/random',
+      name: 'random',
+      component: RandomView
     },
     //短答
     {

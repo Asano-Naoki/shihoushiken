@@ -5,17 +5,19 @@
 </template>
 
 <script>
+import { transformSubject } from '../../helpers/transformSubject.js'
+
 export default {
   props: {
     datum: {},
-    subjectFull: '',
+    subject: '',
     num: '',
     year: '',
   },
   computed: {
     //タイトル（科目・年度・問題番号）の生成
     title() {
-      return this.subjectFull+this.year+"年第"+this.num+"問"
+      return transformSubject(this.subject)+this.year+"年第"+this.num+"問"
     },
     //問題部分の改行の調整（改行１つから２つに）
     filteredQ() {

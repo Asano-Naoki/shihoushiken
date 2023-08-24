@@ -81,11 +81,12 @@ export default {
     },
     //ランダムに１問出題
     randomQuestion() {
+      //なぜか時々エラーが発生するので、エラーが発生したらもう一度実行する（これで問題なく動いているように見える）
       try {
         this.getRandomQuestion(this.toggle_subjects, this.toggle_years)
+        window.scrollTo(0, 0)
       } catch(e) {
-        alert("エラーが発生しました。リロードします。")
-        this.$router.go({path: this.$router.currentRoute.path, force: true})
+        this.randomQuestion()
       }
     },
     //ランダムに問題を取得

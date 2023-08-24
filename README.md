@@ -11,7 +11,7 @@ https://asano-naoki.github.io/shihoushiken/
 - 上記のデモページを利用しているユーザーのデータは取得していません。従いまして、回答記録などの機能はございません。
 - [tantou.csv](./src/data/tantou.csv)で短答の問題と解答をCSVファイルで表形式にまとめておりますので、ご自由に活用してください。
 - https://asano-naoki.github.io/shihoushiken/search から過去問題を横断的に検索することもできます。
-- ランダム問題演習機能はまだありません。近いうちに作る予定です。
+- https://asano-naoki.github.io/shihoushiken/random からランダム問題演習ができます。
 - 簡単な解説も載せることができればと思っておりますが、いつできるかわかりません。
 
 ## 不具合等の報告

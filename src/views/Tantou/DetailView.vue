@@ -1,4 +1,5 @@
 <template>
+  <div @click="hidepdf">
   <v-layout>
     <!-- 問題番号を表示する左サイドバー -->
     <LeftSidebarQuestionsComponent 
@@ -34,6 +35,7 @@
       <ResultComponent
         :datum="datum"
         :show="show"
+        :showpdf="showpdf"
         :correct="correct"
       />
       
@@ -41,6 +43,7 @@
       <v-btn @click="prevQ">前の問題</v-btn>　<v-btn @click="nextQ">次の問題</v-btn>
     </v-main>
   </v-layout>
+  </div>
 </template>
 
 <script>
@@ -66,6 +69,7 @@ export default {
       datum: {},
       correct: false,
       show: false,
+      showpdf: true,
       questions: [],
     }
   },
@@ -142,6 +146,9 @@ export default {
       }
       return continuousArray;
     },
+    hidepdf() {
+      this.showpdf = false;
+    }
   }
 }
 </script>

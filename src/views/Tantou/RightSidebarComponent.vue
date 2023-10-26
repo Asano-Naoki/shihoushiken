@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     joubunSrc() {
-      return "http://localhost:5173/ken.html#Mp-At_"+this.joubunNumber
+      return `${location.protocol}//${location.host}/html/ken.html#Mp-At_${this.joubunNumber}`
     }
   }
 }

@@ -154,11 +154,12 @@ export default {
     },
     //解説中の判例を表示
     showHanrei(hanreiId) {
-      const digit6 = ('000000' + hanreiId).slice(-6);
-      this.hanreiPdfUrl = `http://localhost:5173/pdf/${digit6}_hanrei.pdf`
+      const digit6 = ('000000' + hanreiId).slice(-6)
+      this.hanreiPdfUrl = `${location.protocol}//${location.host}/pdf/${digit6}_hanrei.pdf`
       this.joubunSubject = ''
       this.joubunNumber = ''
-      this.isExplanationVisible = true;
+      this.isExplanationVisible = true
+      window.scrollTo(0, 0)
     },
     //解説中の条文を表示
     showJoubun(subject, number) {
@@ -166,6 +167,7 @@ export default {
       this.joubunSubject = subject
       this.joubunNumber = number
       this.isExplanationVisible = true;
+      window.scrollTo(0, 0)
     },
     //連番を作成
     range(start, end) {

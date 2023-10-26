@@ -8,6 +8,13 @@
         :year="year"
     />  
 
+    <!-- 解説のPDFと条文を表示する右サイドバー -->
+    <RightSidebarComponent v-if="isExplanationVisible" 
+      :hanreiPdfUrl="hanreiPdfUrl"
+      :joubunSubject="joubunSubject"
+      :joubunNumber="joubunNumber"
+    />  
+
     <v-main>
       <h1>司法試験過去問題集・短答</h1>
 
@@ -35,8 +42,9 @@
       <ResultComponent
         :datum="datum"
         :show="show"
-        :showpdf="showpdf"
         :correct="correct"
+        @show-hanrei="showHanrei"
+        @show-joubun="showJoubun"
       />
       
       <!--前の問題と次の問題-->
@@ -52,6 +60,7 @@ import QuestionComponent from './QuestionComponent.vue'
 import ChoicesComponent from './ChoicesComponent.vue'
 import ResultComponent from './ResultComponent.vue'
 import LeftSidebarQuestionsComponent from './LeftSidebarQuestionsComponent.vue'
+import RightSidebarComponent from './RightSidebarComponent.vue'
 import { transformSubject } from '../../helpers/transformSubject.js'
 
 export default {
@@ -60,6 +69,7 @@ export default {
     ChoicesComponent,
     ResultComponent,
     LeftSidebarQuestionsComponent,
+    RightSidebarComponent,
   },
   data() {
     return {
@@ -69,7 +79,10 @@ export default {
       datum: {},
       correct: false,
       show: false,
-      showpdf: true,
+      isExplanationVisible: true,
+      hanreiPdfUrl: '',
+      joubunSubject: 'ken',
+      joubunNumber: '55',
       questions: [],
     }
   },
@@ -120,6 +133,7 @@ export default {
     this.datum = csvData.filter(d => d.subject == to.params.subject && d.year == to.params.year && d.num == to.params.qNum )[0]
     this.correct = false
     this.show = false
+    this.isExplanationVisible = false
     window.scrollTo(0, 0)
     next()
   },  
@@ -138,6 +152,21 @@ export default {
       this.show = true
       window.scrollBy(0, 1000)
     },
+    //解説中の判例を表示
+    showHanrei(hanreiId) {
+      const digit6 = ('000000' + hanreiId).slice(-6);
+      this.hanreiPdfUrl = `http://localhost:5173/pdf/${digit6}_hanrei.pdf`
+      this.joubunSubject = ''
+      this.joubunNumber = ''
+      this.isExplanationVisible = true;
+    },
+    //解説中の条文を表示
+    showJoubun(subject, number) {
+      this.hanreiPdfUrl = ``
+      this.joubunSubject = subject
+      this.joubunNumber = number
+      this.isExplanationVisible = true;
+    },
     //連番を作成
     range(start, end) {
       let continuousArray = []
@@ -146,9 +175,6 @@ export default {
       }
       return continuousArray;
     },
-    hidepdf() {
-      this.showpdf = false;
-    }
   }
 }
 </script>

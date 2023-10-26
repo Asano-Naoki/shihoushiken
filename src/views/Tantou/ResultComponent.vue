@@ -74,34 +74,11 @@ export default {
   },
   methods: {
     parseHanrei(match, id) {
-      const hanrei = hanreiData.filter(d => d.id == id)
-      const linkText = `${hanrei[0].name}・${hanrei[0].date}${hanrei[0].court}${hanrei[0].type}`
-      const hanreiBaseUrl = 'https://www.courts.go.jp/app/hanrei_jp/detail2?id='
-      const linkTag1 = `<a target=”_blank” href="${hanreiBaseUrl}${id}">${linkText}</a>`
-      const hanreiPdfBaseURl = 'https://www.courts.go.jp/app/files/hanrei_jp/'
-      const digit3 = id.slice(-3)
-      const digit6 = ('000000' + id).slice(-6);
-//      const linkTag2 = `<a @click="poppdf" target=”_blank” href="${hanreiPdfBaseURl}${digit3}/${digit6}_hanrei.pdf">全文PDF</a>`
-      const linkTag2 = `<a @click="poppdf">全文PDF</a>`
-      return `${linkTag1}、${linkTag2}`
+      return this.getHanrei(id)
     },
     parseJoubun(match, subject, number) {
-      let result = '';
-      console.log('joubun')
-
-      //replaceの関数内では非同期処理が使えないのでこのようにしている
-      const request = new XMLHttpRequest();
-      request.open("GET", `https://elaws.e-gov.go.jp/api/1/articles;lawId=321CONSTITUTION_19470503_000000000000000;article=${number}`, false);
-      request.send(null);
-
-      if (request.status === 200) {
-        const sentences = request.responseXML.getElementsByTagName("Sentence")
-        for (let sentence of sentences) {
-          result += sentence.textContent
-        }
-      }
-
-      return `<span class="joubun"><span>日本国憲法${number}条</span><span class="joubun-text">${result}</span></span>`
+      const japaneseSubject = transformJoubunSubject(subject)
+      return `${japaneseSubject}${number}条`
     },
     getHanrei(id) {
       const hanrei = hanreiData.filter(d => d.id == id)

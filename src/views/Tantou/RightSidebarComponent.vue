@@ -5,7 +5,7 @@
         type="application/pdf"
       ></object>
       <div v-if="joubunNumber">
-        <iframe src="http://localhost:5173/xml/constitution.xml"></iframe>
+        <iframe :src=joubunSrc></iframe>
       </div>
     </v-navigation-drawer>
 </template>
@@ -17,6 +17,11 @@ export default {
     joubunSubject: String,
     joubunNumber: String,
   },
+  computed: {
+    joubunSrc() {
+      return "http://localhost:5173/ken.html#Mp-At_"+this.joubunNumber
+    }
+  }
 }
 </script>
 

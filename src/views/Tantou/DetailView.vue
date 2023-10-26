@@ -79,10 +79,10 @@ export default {
       datum: {},
       correct: false,
       show: false,
-      isExplanationVisible: true,
+      isExplanationVisible: false,
       hanreiPdfUrl: '',
-      joubunSubject: 'ken',
-      joubunNumber: '55',
+      joubunSubject: '',
+      joubunNumber: '',
       questions: [],
     }
   },

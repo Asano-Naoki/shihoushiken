@@ -60,7 +60,7 @@ JavaScriptの中では、Vue.js（Vue 3）をフレームワークとして使�
 
 ## License
 
-[MIT License](./LICENSE)
+[GNU Affero General Public License v3.0](./LICENSE)
 
 作者は、本リポジトリに起因するいかなる責任も負いません。
 

@@ -1,9 +1,11 @@
 <template>
     <v-navigation-drawer permanent location="right" width=600>
+      <!-- 判例 -->
       <object v-if="hanreiPdfUrl"
         :data=hanreiPdfUrl
         type="application/pdf"
       ></object>
+      <!-- 条文 -->
       <div v-if="joubunNumber">
         <iframe :src=joubunSrc></iframe>
       </div>

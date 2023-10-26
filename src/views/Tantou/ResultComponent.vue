@@ -32,7 +32,7 @@ import { transformJoubunSubject } from '../../helpers/transformSubject.js'
 export default {
   emits: ['showHanrei', 'showJoubun'],
   props: {
-    datum: {},
+    datum: Object,
     show: Boolean,
     correct: Boolean,
   },
@@ -43,11 +43,13 @@ export default {
     }
   },
   computed: {
+    // csvファイルの解説から表示する解説を作る
     filteredExplanation() {
       let returnString = this.datum.explanation.replace(/hanrei (\d+)/g, this.parseHanrei)
       returnString = returnString.replace(/joubun ([a-z]+) (\d+)/g, this.parseJoubun)
       return returnString
     },
+    // 解説に判例が含まれていたら判例IDをリストにして返す
     filteredHanreis() {
       const hanreiMatches = this.datum.explanation.match(/hanrei \d+/g)
       if (hanreiMatches) {
@@ -57,6 +59,7 @@ export default {
         return []
       }
     },
+    // 解説に条文が含まれていたら条文の科目と番号をリストにして返す
     filteredJoubuns() {
       const joubunMatches = this.datum.explanation.match(/joubun [a-z]+ \d+/g)
       if (joubunMatches) {
@@ -73,6 +76,7 @@ export default {
     },
   },
   methods: {
+    // 解説中でマッチした部分をreplaceの関数内で表示用に調整
     parseHanrei(match, id) {
       return this.getHanrei(id)
     },
@@ -80,17 +84,21 @@ export default {
       const japaneseSubject = transformJoubunSubject(subject)
       return `${japaneseSubject}${number}条`
     },
+    // 判例IDから表示用のテキストを取得
     getHanrei(id) {
       const hanrei = hanreiData.filter(d => d.id == id)
       const linkText = `${hanrei[0].name}・${hanrei[0].date}${hanrei[0].court}${hanrei[0].type}`
       return linkText
     },
+    // 判例IDから詳細結果ページのURLを構築
     getHanreiLink(id) {
       return `https://www.courts.go.jp/app/hanrei_jp/detail2?id=${id}`
     },
+    // 右サイドバーに判例全文PDFを表示
     showHanreiPdf(id) {
       this.$emit('showHanrei', id)
     },
+    // 右サイドバーに条文を表示
     showJoubun(subject, number) {
       this.$emit('showJoubun', subject, number)
     }
@@ -103,21 +111,6 @@ export default {
 <style scoped>
 .result {
   font-size:36px;
-}
-.explanation ::v-deep .joubun {
-  cursor: pointer;
-}
-.explanation ::v-deep .joubun-text {
-  display: none;
-}
-.explanation ::v-deep .joubun:hover .joubun-text{
-  display: inline-block;
-  width: 300px;
-  position: absolute;
-  top: -200px;
-  left: 200px;
-  border: solid 1px;
-  padding: 10px;
 }
 .answer {
   font-size:24px;

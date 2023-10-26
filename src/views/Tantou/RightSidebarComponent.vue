@@ -21,7 +21,12 @@ export default {
   },
   computed: {
     joubunSrc() {
-      return `${location.protocol}//${location.host}/html/ken.html#Mp-At_${this.joubunNumber}`
+      if (location.host.includes('github')) {
+        return `${location.protocol}//${location.host}/shihoushiken/html/ken.html#Mp-At_${this.joubunNumber}`
+      }
+      else {
+        return `${location.protocol}//${location.host}/html/ken.html#Mp-At_${this.joubunNumber}`
+      }
     }
   }
 }

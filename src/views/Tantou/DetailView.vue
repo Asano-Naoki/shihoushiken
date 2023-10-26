@@ -155,7 +155,12 @@ export default {
     //解説中の判例を表示
     showHanrei(hanreiId) {
       const digit6 = ('000000' + hanreiId).slice(-6)
-      this.hanreiPdfUrl = `${location.protocol}//${location.host}/pdf/${digit6}_hanrei.pdf`
+      if (location.host.includes('github')) {
+        this.hanreiPdfUrl = `${location.protocol}//${location.host}/shihoushiken/pdf/${digit6}_hanrei.pdf`
+      }
+      else {
+        this.hanreiPdfUrl = `${location.protocol}//${location.host}/pdf/${digit6}_hanrei.pdf`
+      }
       this.joubunSubject = ''
       this.joubunNumber = ''
       this.isExplanationVisible = true

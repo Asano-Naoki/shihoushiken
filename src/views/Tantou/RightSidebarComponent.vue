@@ -22,10 +22,10 @@ export default {
   computed: {
     joubunSrc() {
       if (location.host.includes('github')) {
-        return `${location.protocol}//${location.host}/shihoushiken/html/ken.html#Mp-At_${this.joubunNumber}`
+        return `${location.protocol}//${location.host}/shihoushiken/html/${this.joubunSubject}.html#Mp-At_${this.joubunNumber}`
       }
       else {
-        return `${location.protocol}//${location.host}/html/ken.html#Mp-At_${this.joubunNumber}`
+        return `${location.protocol}//${location.host}/html/${this.joubunSubject}.html#Mp-At_${this.joubunNumber}`
       }
     }
   }

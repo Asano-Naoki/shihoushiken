@@ -19,7 +19,7 @@
     <p v-if="filteredJoubuns.length">【参考条文】</p>
     <div v-for="joubun in filteredJoubuns">
       <p>
-        <a @click.prevent="showJoubun(joubun.subject, joubun.number)" href="">{{ joubun.japaneseSubject }}{{ joubun.number }}条</a>
+        <a @click.prevent="showJoubun(joubun.subject, joubun.number)" href="">{{ joubun.japaneseSubject }}{{ getDisplayJoubunNumber(joubun.number) }}</a>
       </p>
     </div>
   </div>
@@ -45,8 +45,8 @@ export default {
   computed: {
     // csvファイルの解説から表示する解説を作る
     filteredExplanation() {
-      let returnString = this.datum.explanation.replace(/hanrei (\d+)/g, this.parseHanrei)
-      returnString = returnString.replace(/joubun ([a-z]+) (\d+)/g, this.parseJoubun)
+      let returnString = this.datum.explanation.replace(/hanrei (X?\d+)/g, this.parseHanrei)
+      returnString = returnString.replace(/joubun ([a-z]+) (\d+[_\d]*)/g, this.parseJoubun)
       return returnString
     },
     // 解説に判例が含まれていたら判例IDをリストにして返す
@@ -61,7 +61,7 @@ export default {
     },
     // 解説に条文が含まれていたら条文の科目と番号をリストにして返す
     filteredJoubuns() {
-      const joubunMatches = this.datum.explanation.match(/joubun [a-z]+ \d+/g)
+      const joubunMatches = this.datum.explanation.match(/joubun [a-z]+ (\d+[_\d]*)/g)
       if (joubunMatches) {
         return joubunMatches.map((x) => {
           return {'subject' : x.split(' ')[1],
@@ -82,11 +82,12 @@ export default {
     },
     parseJoubun(match, subject, number) {
       const japaneseSubject = transformJoubunSubject(subject)
-      return `${japaneseSubject}${number}条`
+      return `${japaneseSubject}${this.getDisplayJoubunNumber(number)}`
     },
     // 判例IDから表示用のテキストを取得
     getHanrei(id) {
       const hanrei = hanreiData.filter(d => d.id == id)
+      console.log(hanrei)
       const linkText = `${hanrei[0].name}・${hanrei[0].date}${hanrei[0].court}${hanrei[0].type}`
       return linkText
     },
@@ -101,6 +102,15 @@ export default {
     // 右サイドバーに条文を表示
     showJoubun(subject, number) {
       this.$emit('showJoubun', subject, number)
+    },
+    // ○条の△という形の調整
+    getDisplayJoubunNumber(number) {
+      const splitNumber = number.split('_')
+      let displayNumber = `${splitNumber[0]}条`
+      if (splitNumber[1]) {
+        displayNumber = displayNumber + 'の' + splitNumber[1]
+      }
+      return displayNumber
     }
   },
 }

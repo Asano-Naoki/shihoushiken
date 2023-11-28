@@ -29,3 +29,5 @@ coverage
 
 # original
 /material
+*/myvenv
+*/__pycache__

@@ -98,27 +98,27 @@ export default {
     breadcrumbs() {
       const breadcrumbs = [
         {
-          text: '司法試験過去問題集',
+          title: '司法試験過去問題集',
           disabled: false,
           to: { name: 'home' },
         },
         {
-          text: '短答',
+          title: '短答',
           disabled: false,
           to: { name: 'tantouTop' },
         },
         {
-          text: transformSubject(this.subject),
+          title: transformSubject(this.subject),
           disabled: false,
           to: { name: 'tantouTop' },
         },
         {
-          text: this.year+'年',
+          title: this.year+'年',
           disabled: false,
           to: { name: 'tantou',  params: { subject: this.subject, qNum: 1 } },
         },
         {
-          text: '第'+ this.num + '問',
+          title: '第'+ this.num + '問',
           disabled: false,
           to: { name: 'tantou',  params: { subject: this.subject, qNum: this.num } },
         },

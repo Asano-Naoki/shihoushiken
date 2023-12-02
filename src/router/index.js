@@ -6,6 +6,10 @@ import HomeView from '../views/HomeView.vue'
 //検索ページ
 import SearchView from '../views/SearchView.vue'
 
+//判例検索ページ
+import HanreiView from '../views/HanreiView.vue'
+
+
 //短答
 import TantouTopView from '../views/Tantou/TopView.vue'
 import TantouDetailView from '../views/Tantou/DetailView.vue'
@@ -20,11 +24,17 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    //検索ページ
+    //短答問題検索ページ
     {
       path: '/search',
       name: 'search',
       component: SearchView
+    },
+    //判例検索ページ
+    {
+      path: '/hanrei',
+      name: 'hanrei',
+      component: HanreiView
     },
     //ランダム出題
     {

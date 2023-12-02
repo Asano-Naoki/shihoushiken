@@ -87,7 +87,6 @@ export default {
     // 判例IDから表示用のテキストを取得
     getHanrei(id) {
       const hanrei = hanreiData.filter(d => d.id == id)
-      console.log(hanrei)
       const linkText = `${hanrei[0].name}・${hanrei[0].date}${hanrei[0].court}${hanrei[0].type}`
       return linkText
     },

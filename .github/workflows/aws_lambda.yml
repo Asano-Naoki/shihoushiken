@@ -30,7 +30,7 @@ jobs:
 
       - name: docker build & docker push & lambda update
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest ./AWSLAmbda
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest ./AWSLambda
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           aws lambda update-function-code --function-name $AWS_LAMBDA_FUNCTION_NAME --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:latest
         env:

@@ -25,10 +25,11 @@
 
 
     <!--検索結果-->
+    <v-pagination v-model="resultPageNum" :length="20" @update:modelValue="update"></v-pagination>
     <div class="result">
       <dl class="result-dl" v-for="header in headers">
         <dt class="result-dt">{{ header }}</dt>
-        <dd class="result-dd" v-for="item in filteredData[header]">
+        <dd class="result-dd" v-for="item in page(filteredData[header])">
           <span v-html=item></span>
         </dd>
       </dl>
@@ -47,6 +48,7 @@ export default {
       text: "",
       headers: ["全文PDF", "類似度", "ID", "事件番号", "事件名", "裁判年月日", "法廷名", "裁判種別", "結果", "判例集等巻・号・頁", "原審裁判所名", "原審事件番号", "原審裁判年月日", "判示事項", "裁判要旨", "参照法条", "全文PDF"],
       data: {},
+      resultPageNum: 1,
     }
   },
   computed: {
@@ -56,10 +58,10 @@ export default {
       let pdflink = ''
       if (data["ID"]) {
         if (location.host.includes('github')) {
-          pdflink = Object.values(data["ID"]).map((x) => `${location.protocol}//${location.host}/shihoushiken/pdf/${('000000' + x).slice(-6)}_hanrei.pdf`);
+          pdflink = Object.values(data["ID"]).map((x) => `${location.protocol}//${location.host}/shihoushiken/pdf/${x}.pdf`);
         }
         else {
-          pdflink = Object.values(data["ID"]).map((x) => `<a href=${location.protocol}//${location.host}/pdf/${('000000' + x).slice(-6)}_hanrei.pdf>全文PDF</a>`);
+          pdflink = Object.values(data["ID"]).map((x) => `<a target="_blank" href=${location.protocol}//${location.host}/pdf/${x}.pdf>全文PDF</a>`);
         }
         console.log(pdflink)
         data["全文PDF"] = pdflink
@@ -88,6 +90,16 @@ export default {
               this.loading = false
           })
     },
+    page(resultArray) {
+      if (this.data["ID"]) {
+        return Object.values(resultArray).slice((this.resultPageNum-1)*5,this.resultPageNum*5)
+      }
+      return resultArray
+    },
+    update() {
+      console.log('abc')
+      console.log(this.resultPageNum)
+    },
   }
 }
 </script>
@@ -98,7 +110,7 @@ export default {
   scroll-behavior: smooth;
 }
 .result-dl {
-  width: 2000px;
+  width: 1200px;
   margin: 0;
   padding: 0;
   display: table;
@@ -108,7 +120,7 @@ export default {
   box-sizing: border-box;
 }
 .result-dt {
-  width: 160px;
+  width: 200px;
   background: #f5f5f5;
   border-right: 1px solid #d5d5d5;
   font-weight: 700;
@@ -119,7 +131,7 @@ export default {
   margin: 0;
 }
 .result-dd {
-  width:160px;
+  width:200px;
   display: table-cell;
   padding: 20px;
   margin: 0;

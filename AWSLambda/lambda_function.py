@@ -42,10 +42,10 @@ def handler(event, context):
     series_result = pd.Series(cs_array[0])
     series_rownumber = pd.Series(range(0, len(cs_array[0])))
 
-    # 上記のシリーズを連結してデータフレームにして、類似度の上位10件を取得
+    # 上記のシリーズを連結してデータフレームにして、類似度の上位100件を取得
     df_result = pd.concat([series_rownumber, series_result], axis=1)
     df_result.rename(columns={0: '行番号', 1: '類似度'}, inplace=True)
-    df10 = df_result.sort_values(by='類似度', ascending=False).head(10)
+    df10 = df_result.sort_values(by='類似度', ascending=False).head(100)
 
     # 判例元データの読み込み
     df = pd.read_csv('hanrei.csv')

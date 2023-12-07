@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "AWSLAmbda/*"
+      - "AWSLambda/*"
   workflow_dispatch:
 
 jobs:

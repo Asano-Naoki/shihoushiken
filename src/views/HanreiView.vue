@@ -34,6 +34,8 @@
         </dd>
       </dl>
     </div>
+    <v-pagination v-model="resultPageNum" :length="20" @update:modelValue="update"></v-pagination>
+
 
   </main>
 </template>

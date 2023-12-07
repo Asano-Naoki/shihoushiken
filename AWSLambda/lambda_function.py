@@ -10,6 +10,8 @@ import numpy as np
 import pandas as pd
 from scipy.io import mmread
 from sklearn.metrics.pairwise import cosine_similarity
+import json
+
 
 # 単語に分割してストップワードをフィルタリングする関数の作成
 def analyzer(text):
@@ -55,8 +57,13 @@ def handler(event, context):
     print(df2)
     print('done')
 
-    return df2.to_json()
-
-
-
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Headers': "'Content-Type': 'application/json'",
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+        },
+        'body': json.dumps(df2.to_json()),
+    }
 

@@ -76,13 +76,13 @@ export default {
     search() {
       console.log(this.text)
       this.loading = true
-      axios.get('https://5hiwblksm9.execute-api.ap-northeast-1.amazonaws.com/hanrei', { 
+      axios.get('https://t7cby7mol9.execute-api.ap-northeast-1.amazonaws.com/test', { 
           params: {
             text: this.text,
           }
       })
            .then(response => {
-              console.log(response)
+              console.log(response.data)
               this.data = response.data
               this.loading = false
            })

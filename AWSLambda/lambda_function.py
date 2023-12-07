@@ -64,6 +64,6 @@ def handler(event, context):
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
         },
-        'body': json.dumps(df2.to_json()),
+        'body': df2.to_json(),
     }
 

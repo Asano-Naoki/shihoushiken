@@ -77,9 +77,10 @@ export default {
       console.log(this.text)
       this.loading = true
       axios.get('https://t7cby7mol9.execute-api.ap-northeast-1.amazonaws.com/test', { 
-          params: {
-            text: this.text,
-          }
+        headers: {'x-api-key': import.meta.env.VITE_AWS_GATEWAY_API_KEY},
+        params: {
+          text: this.text,
+        }
       })
            .then(response => {
               console.log(response.data)

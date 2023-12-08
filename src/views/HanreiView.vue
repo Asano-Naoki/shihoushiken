@@ -60,7 +60,7 @@ export default {
       let pdflink = ''
       if (data["ID"]) {
         if (location.host.includes('github')) {
-          pdflink = Object.values(data["ID"]).map((x) => `${location.protocol}//${location.host}/shihoushiken/pdf/${x}.pdf`);
+          pdflink = Object.values(data["ID"]).map((x) => `<a target="_blank" href=${location.protocol}//${location.host}/shihoushiken/pdf/${x}.pdf>全文PDF</a>`);
         }
         else {
           pdflink = Object.values(data["ID"]).map((x) => `<a target="_blank" href=${location.protocol}//${location.host}/pdf/${x}.pdf>全文PDF</a>`);

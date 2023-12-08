@@ -38,6 +38,7 @@ jobs:
         env: 
           VITE_AWS_GATEWAY_API_KEY: ${{ secrets.VITE_AWS_GATEWAY_API_KEY }}
       - run: cp -r pdf ./docs
+      - run: cp -r html ./docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:

@@ -71,6 +71,12 @@ export default {
       return data
     },
   },
+  created() {
+    if(this.$route.params['text']) {
+      this.text = this.$route.params['text']
+      this.search()
+    }
+  },
   methods: {
     //検索
     search() {
@@ -119,6 +125,15 @@ export default {
   display: table;
   border: 1px solid #d5d5d5;
   border-bottom: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.result-dl:last-child {
+  width: 1200px;
+  margin: 0;
+  padding: 0;
+  display: table;
+  border: 1px solid #d5d5d5;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }

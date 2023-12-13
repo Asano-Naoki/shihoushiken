@@ -36,6 +36,11 @@ const router = createRouter({
       name: 'hanrei',
       component: HanreiView
     },
+    {
+      path: '/hanrei/:text',
+      name: 'hanreitext',
+      component: HanreiView
+    },
     //ランダム出題
     {
       path: '/random',

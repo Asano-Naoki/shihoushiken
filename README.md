@@ -10,7 +10,7 @@ https://asano-naoki.github.io/shihoushiken/
 
 ## デモ動画
 
-https://github.com/Asano-Naoki/shihoushiken/blob/main/simplescreenrecorder-2023-12-14_13.00.36.mp4
+https://github.com/Asano-Naoki/shihoushiken/assets/63027441/79cc8493-23e0-441c-b567-d7739106f1b2
 
 ## 特徴
 - 司法試験の過去問題を機械的に取得し、科目別・年度別で過去問演習ができるようにしました。

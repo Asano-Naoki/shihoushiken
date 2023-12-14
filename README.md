@@ -39,13 +39,13 @@ Pythonを使って自動化できる部分は自動化しました。
 1. question_pdf.py内で1で付けたファイル名を設定し、question_pdf.pyを実行します。
 1. 法務省のサイトで公開されている短答式試験の正答及び配点PDFファイルをダウンロードし、kei2023a.pdfなど適当なファイル名にして、python_for_extracting_pdfディレクトリ内に入れます。
 1. answer_pdf.py内で3で付けたファイル名を設定し、answer_pdf.pyを実行します。
-1. 4によりkei2023a.csvといった名前のCSVファイルが出力されるので（例：[kei2023a_before.csv](./python_for_extracting_pdf/kei2023a_before.csv)）、そのファイルを開き、目視による手作業で、左から問・No・解答の順に数字が入るように調整し、上書き保存します（例：[kei2023a_after.csv](./python_for_extracting_pdf/kei2023a_after.csv)）。複数解答の問の部分は空白になります。
+1. 4によりkei2023a.csvといった名前のCSVファイルが出力されるので（例：[kei2023a_before.csv](./python_for_collecting_data/tantou/kei2023a_before.csv)）、そのファイルを開き、目視による手作業で、左から問・No・解答の順に数字が入るように調整し、上書き保存します（例：[kei2023a_after.csv](./python_for_collecting_data/tantou/kei2023a_after.csv)）。複数解答の問の部分は空白になります。
 1. transform_answer.py内で5で調整して保存したファイル名を設定し、transform_answer.pyを実行します。
 1. 2で出力されたkei2023q.csvといった名前のファイルに問題が、6で出力されたkei2023a_output.csvといった名前のファイルに解答があるので、それぞれコピーして貼り付けて[tantou.csv](./src/data/tantou.csv)のようにまとめました。
 
 上記の手順ではカッコや句読点などがうまく取得できないことがたびたびあったので、目で見て手作業で修正しました。
 
-詳細につきましては、[python_for_extracting_pdf](./python_for_extracting_pdf/)ディレクトリ内の各ファイルをご覧ください。
+詳細につきましては、[python_for_collecting_data/tantou/](./python_for_collecting_data/tantou/)ディレクトリ内の各ファイルをご覧ください。
 
 ### デプロイと技術選定
 

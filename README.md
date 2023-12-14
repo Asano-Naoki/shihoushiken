@@ -2,6 +2,8 @@
 
 司法試験の過去問題を集めています。現在、2006年から2023年の短答の過去問題を収録しております。
 
+解説を作成する際に必要性を感じたため、自由な文章から関連する判例を検索する判例探索サービスもございます。
+
 ## デモページ
 
 https://asano-naoki.github.io/shihoushiken/
@@ -12,6 +14,7 @@ https://asano-naoki.github.io/shihoushiken/
 - [tantou.csv](./src/data/tantou.csv)で短答の問題と解答をCSVファイルで表形式にまとめておりますので、ご自由に活用してください。
 - https://asano-naoki.github.io/shihoushiken/search から過去問題を横断的に検索することもできます。
 - https://asano-naoki.github.io/shihoushiken/random からランダム問題演習ができます。
+- https://asano-naoki.github.io/shihoushiken/hanrei では、自由な文章から関連する判例を検索できます。
 - 簡単な解説も載せることができればと思っておりますが、いつできるかわかりません。
 
 ## 不具合等の報告
@@ -28,7 +31,7 @@ Issueに書き込むためには、GitHubにログインする必要がありま
 
 Pythonを使って自動化できる部分は自動化しました。
 
-1. 法務省のサイトで公開されている短答式試験の試験問題PDFファイルをダウンロードし、kei2023q.pdfなど適当なファイル名にして、python_for_extracting_pdfディレクトリ内に入れます。
+1. 法務省のサイトで公開されている短答式試験の試験問題PDFファイルをダウンロードし、kei2023q.pdfなど適当なファイル名にして、python_for_collecting_data/tantou/ディレクトリ内に入れます。
 1. question_pdf.py内で1で付けたファイル名を設定し、question_pdf.pyを実行します。
 1. 法務省のサイトで公開されている短答式試験の正答及び配点PDFファイルをダウンロードし、kei2023a.pdfなど適当なファイル名にして、python_for_extracting_pdfディレクトリ内に入れます。
 1. answer_pdf.py内で3で付けたファイル名を設定し、answer_pdf.pyを実行します。

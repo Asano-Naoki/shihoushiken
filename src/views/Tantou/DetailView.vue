@@ -156,10 +156,10 @@ export default {
     showHanrei(hanreiId) {
       const digit6 = ('000000' + hanreiId).slice(-6)
       if (location.host.includes('github')) {
-        this.hanreiPdfUrl = `${location.protocol}//${location.host}/shihoushiken/pdf/${digit6}_hanrei.pdf`
+        this.hanreiPdfUrl = `${location.protocol}//${location.host}/shihoushiken/pdf/${hanreiId}.pdf`
       }
       else {
-        this.hanreiPdfUrl = `${location.protocol}//${location.host}/pdf/${digit6}_hanrei.pdf`
+        this.hanreiPdfUrl = `${location.protocol}//${location.host}/pdf/${hanreiId}.pdf`
       }
       this.joubunSubject = ''
       this.joubunNumber = ''

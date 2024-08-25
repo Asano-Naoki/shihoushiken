@@ -46,7 +46,7 @@ export default {
     // csvファイルの解説から表示する解説を作る
     filteredExplanation() {
       let returnString = this.datum.explanation.replace(/hanrei (X?\d+)/g, this.parseHanrei)
-      returnString = returnString.replace(/joubun ([a-z]+) (\d+[_\d]*)/g, this.parseJoubun)
+      returnString = returnString.replace(/joubun ([a-z]+) (\d+[ _\d]*)/g, this.parseJoubun)
       return returnString
     },
     // 解説に判例が含まれていたら判例IDをリストにして返す
@@ -102,14 +102,24 @@ export default {
     showJoubun(subject, number) {
       this.$emit('showJoubun', subject, number)
     },
-    // ○条の△という形の調整
+    // ○条△項と○条の△という形の調整
     getDisplayJoubunNumber(number) {
-      const splitNumber = number.split('_')
-      let displayNumber = `${splitNumber[0]}条`
-      if (splitNumber[1]) {
-        displayNumber = displayNumber + 'の' + splitNumber[1]
+      let kou = ''
+      // ○条△項の調整
+      const spaceSplitNumber = number.split(' ')
+      let jou = spaceSplitNumber[0]
+      if (spaceSplitNumber[1]) {
+        kou = '第' + spaceSplitNumber[1] + '項'
       }
-      return displayNumber
+      // ○条の△の調整
+      const underscoreSplitNumber = jou.split('_')
+      if (underscoreSplitNumber[1]) {
+        jou = underscoreSplitNumber[0] + '条の' + underscoreSplitNumber[1]
+      }
+      else {
+        jou = `${underscoreSplitNumber[0]}条`
+      }
+      return jou + kou
     }
   },
 }

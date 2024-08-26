@@ -34,22 +34,26 @@ def convert_kansuuji_to_arabic_number(kansuuji):
     return arabic_number
 
 
-# 第○○条の部分にマッチさせ、○○という漢数字をキャプチャ
+# 第○○条の部分にマッチさせ、○○という漢数字をキャプチャするパターン
 pattern = re.compile(r'<span style="font-weight: bold;">第(.*)条</span>')
 
+# e-Govからダウンロードした条文htmlファイルの読み込み
 with open('./140AC0000000045_20230713_505AC0000000066.html') as reader:
+    # 読み込んだhtmlファイルを一行ずつ保存するリストの初期化
     output_line_list = []
     for i, line in enumerate(reader):
+        # 読み込んだ行をリストに追加
         output_line_list.append(line)
+        # 「第○○条」の部分にマッチさせる
         result = pattern.search(line)
         # 第○○条の部分にマッチした場合
         if result:
             # ○○という漢数字をアラビア数字に変換
             arabic_joubun_number = convert_kansuuji_to_arabic_number(result.group(1))
+            # マッチした行の一つ前の行の「id=""」を「id="Mp-At_199"」のように変換
             output_line_list[i-1] = output_line_list[i-1].replace('id=""', f'id="Mp-At_{arabic_joubun_number}"')
 
-
-# 書き出し
+# 保存したリストの書き出し
 with open('kei.html', 'w') as writer:
     for output_line in output_line_list:
         writer.write(output_line)

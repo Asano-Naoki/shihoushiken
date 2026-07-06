@@ -12,7 +12,7 @@ from scipy.io import mmwrite
 
 # 変数の初期化と設定
 directory = '../python_for_collecting_data/hanrei/hanrei_pdf'
-ids = []
+filepaths = []
 contents = []
 df = pd.DataFrame(columns=["filepath", "content"])
 
@@ -26,11 +26,11 @@ for file_path in files:
     s = s.replace( '\n' , '' )
     s = s.replace( '　' , '' )
     s = s.replace( ' ' , '' )
-    ids.append(file_path)
+    filepaths.append(file_path)
     contents.append(s)
 
 # 取得したPDFのファイルパスと中身をデータフレームに
-df['filepath'] = ids
+df['filepath'] = filepaths
 df['content'] = contents
 
 # ストップワードの設定

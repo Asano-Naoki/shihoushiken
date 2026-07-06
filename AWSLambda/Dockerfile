@@ -1,22 +1,21 @@
 FROM public.ecr.aws/lambda/python:3.11
 
-# Copy requirements.txt etc.
+# requirements.txtと必要なデータをコピー
 COPY requirements.txt ${LAMBDA_TASK_ROOT}
-COPY vectorizer.binaryfile ${LAMBDA_TASK_ROOT}
-COPY x.mtx ${LAMBDA_TASK_ROOT}
-COPY hanrei.csv ${LAMBDA_TASK_ROOT}
+COPY hanrei_vectorizer ${LAMBDA_TASK_ROOT}
+COPY hanrei_vector.mtx ${LAMBDA_TASK_ROOT}
+COPY hanrei_for_similarity.csv ${LAMBDA_TASK_ROOT}
 
-# Install the specified packages
+# Pythonパッケージのインストール
 RUN pip install -r requirements.txt
 
-# Copy function code
+# 関数をコピー
 COPY lambda_function.py ${LAMBDA_TASK_ROOT}
-COPY load_pickle.py ${LAMBDA_TASK_ROOT}
 COPY analyzer.py ${LAMBDA_TASK_ROOT}
 COPY analyzer.py '/var/runtime/'
 
-# echo
+# エラーを回避するためにbootstrapを置換
 RUN sed -i -e "s/import json/from analyzer import analyzer\nimport json/" /var/runtime/bootstrap.py
 
-# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
+# CMDの設定
 CMD [ "lambda_function.handler" ]

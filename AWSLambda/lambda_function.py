@@ -12,13 +12,13 @@ def handler(event, context):
     # 学習済みのvectorizerとデータをファイルから読み込み
     with open("hanrei_vectorizer", "rb") as f:
         vectorizer = pickle.load(f)
-    data = mmread("hanrei_vector.mtx")
+    hanrei_vector = mmread("hanrei_vector.mtx")
 
     # 対象テキストのベクトル化
     new_text_vector = vectorizer.transform([new_text])
 
     # コサイン類似度の算出
-    cs_array = cosine_similarity(new_text_vector, data)
+    cs_array = cosine_similarity(new_text_vector, hanrei_vector)
 
     # コサイン類似度の結果とそのインデックス（行番号）をそれぞれシリーズ化
     series_result = pd.Series(cs_array[0])
@@ -27,14 +27,14 @@ def handler(event, context):
     # 上記のシリーズを連結してデータフレームにして、類似度の上位100件を取得
     df_result = pd.concat([series_rownumber, series_result], axis=1)
     df_result.rename(columns={0: '行番号', 1: '類似度'}, inplace=True)
-    df10 = df_result.sort_values(by='類似度', ascending=False).head(100)
+    df_top100 = df_result.sort_values(by='類似度', ascending=False).head(100)
 
     # 判例元データの読み込み
-    df = pd.read_csv('hanrei_for_similarity.csv')
+    df_original_hanrei = pd.read_csv('hanrei_for_similarity.csv')
 
     # 類似度の上位10件と判例元データをマージ
-    df2 = df10.merge(df, on='行番号')
-    print(df2)
+    df = df_top100.merge(df_original_hanrei, on='行番号')
+    print(df)
     print('done')
 
     return {
@@ -44,6 +44,6 @@ def handler(event, context):
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
         },
-        'body': df2.to_json(),
+        'body': df.to_json(),
     }
 

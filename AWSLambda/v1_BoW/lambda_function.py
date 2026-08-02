@@ -4,15 +4,15 @@ from scipy.io import mmread
 from sklearn.metrics.pairwise import cosine_similarity
 from analyzer import analyzer # この行がないとpickle.loadでエラーになるので注意
 
+# 学習済みのvectorizerとデータをファイルから読み込み
+with open("hanrei_vectorizer", "rb") as f:
+    vectorizer = pickle.load(f)
+hanrei_vector = mmread("hanrei_vector.mtx")
+
 # Lambda本体
 def handler(event, context):
     # 対象テキスト
     new_text = str(event['queryStringParameters']['text'])
-
-    # 学習済みのvectorizerとデータをファイルから読み込み
-    with open("hanrei_vectorizer", "rb") as f:
-        vectorizer = pickle.load(f)
-    hanrei_vector = mmread("hanrei_vector.mtx")
 
     # 対象テキストのベクトル化
     new_text_vector = vectorizer.transform([new_text])

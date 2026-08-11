@@ -11,7 +11,7 @@ from scipy.io import mmwrite
 
 
 # 変数の初期化と設定
-directory = '../python_for_collecting_data/hanrei/hanrei_pdf'
+directory = '../../python_for_collecting_data/hanrei/hanrei_pdf'
 filepaths = []
 contents = []
 df = pd.DataFrame(columns=["filepath", "content"])
@@ -55,7 +55,7 @@ with open('hanrei_vectorizer', 'wb') as f:
 mmwrite('hanrei_vector.mtx', X)
 
 # 行番号と判例データを対応させたCSVファイルを出力
-df_original = pd.read_csv('../python_for_collecting_data/hanrei/test_hanrei.csv')
+df_original = pd.read_csv('../../python_for_collecting_data/hanrei/test_hanrei.csv')
 df = df.reset_index(names="行番号")
 df["ID"] = (df["filepath"].str.extract(r"(\d+)\.pdf$")[0].astype("Int64"))
 df_hanrei_for_similarity = pd.merge(df, df_original, on='ID')

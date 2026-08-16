@@ -61,10 +61,11 @@ export default {
       headers: ["全文PDF", "類似度", "ID", "事件番号", "事件名", "裁判年月日", "法廷名", "裁判種別", "結果", "判例集等巻・号・頁", "原審裁判所名", "原審事件番号", "原審裁判年月日", "判示事項", "裁判要旨", "参照法条", "全文PDF"],
       data: {},
       resultPageNum: 1,
-      apiVersion: 'v2',
+      apiVersion: 'v2.1',
       versionOptions: [
         { label: 'v1（BoW）', value: 'v1' },
         { label: 'v2（Embedding）', value: 'v2' },
+        { label: 'v2.1（Embedding--Google Cloud）', value: 'v2.1' },
       ],
     }
   },
@@ -98,9 +99,11 @@ export default {
       // バージョンに応じたURLを設定
       let apiUrl = '';
       if (this.apiVersion == 'v1') {
-        apiUrl = 'https://y0b0gygpsl.execute-api.ap-northeast-1.amazonaws.com/hanrei/';
+        apiUrl = 'https://y0b0gygpsl.execute-api.ap-northeast-1.amazonaws.com/hanrei';
       } else if (this.apiVersion == 'v2') {
         apiUrl = 'https://2wi66q2ng1.execute-api.ap-northeast-1.amazonaws.com/hanrei';
+      } else if (this.apiVersion == 'v2.1') {
+        apiUrl = 'https://hanrei-api-60066003651.asia-northeast1.run.app/search';
       }
       axios.get(apiUrl, { 
         headers: {'x-api-key': import.meta.env.VITE_AWS_GATEWAY_API_KEY},

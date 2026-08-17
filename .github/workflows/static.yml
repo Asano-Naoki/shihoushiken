@@ -38,6 +38,7 @@ jobs:
       - run: npm run build
         env: 
           VITE_AWS_GATEWAY_API_KEY: ${{ secrets.VITE_AWS_GATEWAY_API_KEY }}
+          VITE_GOOGLE_GATEWAY_API_KEY: ${{ secrets.VITE_GOOGLE_GATEWAY_API_KEY }}
       - run: cp -r pdf ./docs
       - run: cp -r html ./docs
       - name: Upload artifact

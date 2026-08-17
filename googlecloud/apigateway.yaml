@@ -1,0 +1,74 @@
+swagger: '2.0'
+info:
+  title: my-cloud-run-gateway
+  description: API Gateway with API Key and CORS support
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+
+x-google-management:
+  metrics:
+    - name: "read-requests"
+      displayName: "Read Requests"
+      metricKind: DELTA
+      valueType: INT64
+  quota:
+    limits:
+      - name: "read-requests-limit"
+        metric: "read-requests"
+        unit: "1/min/{project}" # 1プロジェクトあたりの1分間の制限
+        values:
+          STANDARD: 100         # 1分間あたり最大100リクエストまで
+
+securityDefinitions:
+  api_key_header:
+    type: apiKey
+    name: x-api-key
+    in: header
+
+paths:
+  /search:
+    # --- 1. OPTIONS (プリフライト) の処理 ---
+    options:
+      summary: CORS preflight
+      operationId: corsSearch
+      security: []  # OPTIONSにはAPIキー認証をかけない
+      x-google-backend:
+        address: https://hanrei-api-60066003651.asia-northeast1.run.app
+      responses:
+        '204':
+          description: No Content
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "*"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
+
+    # --- 2. GET (本リクエスト) の処理 ---
+    get:
+      summary: Call Cloud Run search service
+      operationId: getSearch
+      security:
+        - api_key_header: []
+      x-google-backend:
+        address: https://hanrei-api-60066003651.asia-northeast1.run.app
+        jwt_audience: https://hanrei-api-60066003651.asia-northeast1.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+        deadline: 300.0
+      x-google-quota:
+        metricCosts:
+          "read-requests": 1    # 1回のリクエストで1ユニット消費
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "*"

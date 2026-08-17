@@ -98,15 +98,19 @@ export default {
       this.loading = true
       // バージョンに応じたURLを設定
       let apiUrl = '';
+      let apiKey = '';
       if (this.apiVersion == 'v1') {
         apiUrl = 'https://y0b0gygpsl.execute-api.ap-northeast-1.amazonaws.com/hanrei';
+        apiKey = import.meta.env.VITE_AWS_GATEWAY_API_KEY;
       } else if (this.apiVersion == 'v2') {
         apiUrl = 'https://2wi66q2ng1.execute-api.ap-northeast-1.amazonaws.com/hanrei';
+        apiKey = import.meta.env.VITE_AWS_GATEWAY_API_KEY;
       } else if (this.apiVersion == 'v2.1') {
-        apiUrl = 'https://hanrei-api-60066003651.asia-northeast1.run.app/search';
+        apiUrl = 'https://hanrei-api12-rldqx1f.an.gateway.dev/search';
+        apiKey = import.meta.env.VITE_GOOGLE_GATEWAY_API_KEY;
       }
       axios.get(apiUrl, { 
-        headers: {'x-api-key': import.meta.env.VITE_AWS_GATEWAY_API_KEY},
+        headers: {'x-api-key': apiKey},
         params: {
           text: this.text,
         }

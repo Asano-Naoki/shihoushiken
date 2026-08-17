@@ -106,7 +106,7 @@ export default {
         apiUrl = 'https://2wi66q2ng1.execute-api.ap-northeast-1.amazonaws.com/hanrei';
         apiKey = import.meta.env.VITE_AWS_GATEWAY_API_KEY;
       } else if (this.apiVersion == 'v2.1') {
-        apiUrl = 'https://hanrei-api12-rldqx1f.an.gateway.dev/search';
+        apiUrl = 'https://hanrei-api13-rldqx1f.an.gateway.dev/search';
         apiKey = import.meta.env.VITE_GOOGLE_GATEWAY_API_KEY;
       }
       axios.get(apiUrl, { 

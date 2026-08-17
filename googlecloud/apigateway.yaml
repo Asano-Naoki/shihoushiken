@@ -37,6 +37,7 @@ paths:
       security: []  # OPTIONSにはAPIキー認証をかけない
       x-google-backend:
         address: https://hanrei-api-60066003651.asia-northeast1.run.app
+        deadline: 300.0
       responses:
         '204':
           description: No Content

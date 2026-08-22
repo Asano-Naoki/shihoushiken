@@ -61,11 +61,12 @@ export default {
       headers: ["全文PDF", "類似度", "ID", "事件番号", "事件名", "裁判年月日", "法廷名", "裁判種別", "結果", "判例集等巻・号・頁", "原審裁判所名", "原審事件番号", "原審裁判年月日", "判示事項", "裁判要旨", "参照法条", "全文PDF"],
       data: {},
       resultPageNum: 1,
-      apiVersion: 'v2.1',
+      apiVersion: 'v2.2',
       versionOptions: [
         { label: 'v1（BoW）', value: 'v1' },
         { label: 'v2（Embedding）', value: 'v2' },
         { label: 'v2.1（Embedding--Google Cloud）', value: 'v2.1' },
+        { label: 'v2.2（Embedding--Google Cloud2）', value: 'v2.2' },
       ],
     }
   },
@@ -108,7 +109,11 @@ export default {
       } else if (this.apiVersion == 'v2.1') {
         apiUrl = 'https://hanrei-api13-rldqx1f.an.gateway.dev/search';
         apiKey = import.meta.env.VITE_GOOGLE_GATEWAY_API_KEY;
+      } else if (this.apiVersion == 'v2.2') {
+        apiUrl = 'https://rate-limit-proxy-60066003651.asia-northeast1.run.app';
+        apiKey = import.meta.env.VITE_GOOGLE_GATEWAY_API_KEY;
       }
+
       axios.get(apiUrl, { 
         headers: {'x-api-key': apiKey},
         params: {

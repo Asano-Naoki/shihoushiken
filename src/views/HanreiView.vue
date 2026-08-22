@@ -110,7 +110,7 @@ export default {
         apiUrl = 'https://hanrei-api13-rldqx1f.an.gateway.dev/search';
         apiKey = import.meta.env.VITE_GOOGLE_GATEWAY_API_KEY;
       } else if (this.apiVersion == 'v2.2') {
-        apiUrl = 'https://rate-limit-proxy-60066003651.asia-northeast1.run.app';
+        apiUrl = 'https://rate-limit-proxy-60066003651.asia-northeast1.run.app/search';
         apiKey = import.meta.env.VITE_GOOGLE_GATEWAY_API_KEY;
       }
 
